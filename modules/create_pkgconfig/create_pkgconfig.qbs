@@ -64,6 +64,7 @@ Module {
             cmd.prefix = output.moduleProperty("qbs", "installRoot");
             cmd.targetName = PathTools.dynamicLibraryFilePath(product);
             cmd.pkgVersion = ModUtils.moduleProperty(product, "version");
+            cmd.pkgName = ModUtils.moduleProperty(product, "name");
             cmd.pkgDescription = ModUtils.moduleProperty(product, "description");
             cmd.libDir = ModUtils.moduleProperty(product, "libDir");
             cmd.includeDir = ModUtils.moduleProperty(product, "includeDir");
@@ -74,7 +75,7 @@ Module {
                 file.writeLine("libdir=${prefix}/" + libDir);
                 file.writeLine("includedir=${prefix}/" + includeDir);
                 file.writeLine("");
-                file.writeLine("Name: " + product.targetName);
+                file.writeLine("Name: " + pkgName);
                 file.writeLine("Description: " + pkgDescription);
                 file.writeLine("Version: " + pkgVersion);
                 file.writeLine("Libs: -L${libdir} -l" + product.targetName);

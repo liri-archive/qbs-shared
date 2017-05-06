@@ -2,8 +2,9 @@ import qbs 1.0
 import qbs.FileInfo
 
 LiriDynamicLibrary {
-    property string generatedHeadersDir: FileInfo.joinPaths(product.buildDirectory, "include")
+    property string generatedHeadersDir: FileInfo.joinPaths(product.buildDirectory, lirideployment.includeDir)
 
+    Depends { name: "lirideployment" }
     Depends { name: "create_headers" }
     Depends { name: "create_pkgconfig" }
     Depends { name: "create_prl" }
@@ -14,19 +15,19 @@ LiriDynamicLibrary {
 
     Group {
         qbs.install: true
-        qbs.installDir: FileInfo.joinPaths("include", product.targetName)
+        qbs.installDir: FileInfo.joinPaths(lirideployment.includeDir, product.targetName)
         fileTagsFilter: ["public_headers", "class_headers"]
     }
 
     Group {
         qbs.install: true
-        qbs.installDir: FileInfo.joinPaths("include", product.targetName, project.version, product.targetName, "private")
+        qbs.installDir: FileInfo.joinPaths(lirideployment.includeDir, product.targetName, project.version, product.targetName, "private")
         fileTagsFilter: "private_headers"
     }
 
     Group {
         qbs.install: true
-        qbs.installDir: bundle.isBundle ? "Library/Frameworks" : (qbs.targetOS.contains("windows") ? "" : "lib")
+        qbs.installDir: bundle.isBundle ? "Library/Frameworks" : (qbs.targetOS.contains("windows") ? "" : lirideployment.libDir)
         qbs.installSourceBase: product.buildDirectory
         fileTagsFilter: [
             "dynamiclibrary",
@@ -38,20 +39,20 @@ LiriDynamicLibrary {
     Group {
         condition: qbs.targetOS.contains("linux")
         qbs.install: true
-        qbs.installDir: FileInfo.joinPaths("lib", "pkgconfig")
+        qbs.installDir: FileInfo.joinPaths(lirideployment.libDir, "pkgconfig")
         fileTagsFilter: "pkgconfig"
     }
 
     Group {
         qbs.install: true
-        qbs.installDir: FileInfo.joinPaths("mkspecs", "modules")
+        qbs.installDir: FileInfo.joinPaths(lirideployment.mkspecsDir, "modules")
         fileTagsFilter: "pri"
     }
 
     Group {
         condition: qbs.targetOS.contains("linux")
         qbs.install: true
-        qbs.installDir: FileInfo.joinPaths("lib", "cmake", product.targetName)
+        qbs.installDir: FileInfo.joinPaths(lirideployment.libDir, "cmake", product.targetName)
         fileTagsFilter: "cmake"
     }
 }

@@ -12,8 +12,8 @@ Module {
     property string libDir: "lib"
     property string libexecDir: "libexec"
     property string includeDir: "include"
-    property string importsDir: "imports"
-    property string qmlDir: "qml"
-    property string pluginsDir: "plugins"
+    property string importsDir: libDir + "/imports"
+    property string qmlDir: libDir + "/qml"
+    property string pluginsDir: libDir + "/plugins"
     property string mkspecsDir: "mkspecs"
 }

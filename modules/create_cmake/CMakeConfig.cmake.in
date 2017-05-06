@@ -1,0 +1,102 @@
+
+if (CMAKE_VERSION VERSION_LESS 2.8.3)
+    message(FATAL_ERROR "@TITLE@ requires at least CMake version 2.8.3")
+endif()
+
+get_filename_component(_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix "@INSTALL_ROOT@" ABSOLUTE)
+
+# For backwards compatibility only. Use @TARGET_NAME@_VERSION instead.
+set(@TARGET_NAME@_VERSION_STRING "@VERSION@")
+
+set(@TARGET_NAME@_LIBRARIES @TARGET_NAMESPACE@::@TARGET_NAME@)
+
+macro(_@TARGET_NAMESPACE@_@TARGET_NAME@_check_file_exists file)
+    if(NOT EXISTS "${file}" )
+        message(FATAL_ERROR "The imported target \"@TARGET_NAMESPACE@::@TARGET_NAME@\" references the file
+   \"${file}\"
+but this file does not exist.  Possible reasons include:
+* The file was deleted, renamed, or moved to another location.
+* An install or uninstall procedure did not complete successfully.
+* The installation package was faulty and contained
+   \"${CMAKE_CURRENT_LIST_FILE}\"
+but not all the files it references.
+")
+    endif()
+endmacro()
+
+macro(_populate_target_properties Configuration LIB_LOCATION IMPLIB_LOCATION)
+    set_property(TARGET @TARGET_NAMESPACE@::@TARGET_NAME@ APPEND PROPERTY IMPORTED_CONFIGURATIONS ${Configuration})
+
+    set(imported_location "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@LIB_DIR@")
+    _@TARGET_NAMESPACE@_@TARGET_NAME@_check_file_exists(${imported_location})
+    set_target_properties(@TARGET_NAMESPACE@::@TARGET_NAME@ PROPERTIES
+        "INTERFACE_LINK_LIBRARIES" "${_@TARGET_NAME@_LIB_DEPENDENCIES}"
+        "IMPORTED_LOCATION_${Configuration}" ${imported_location}
+        "IMPORTED_SONAME_${Configuration}" "@SONAME@"
+        # For backward compatibility with CMake < 2.8.12
+        "IMPORTED_LINK_INTERFACE_LIBRARIES_${Configuration}" "${_@TARGET_NAME@_LIB_DEPENDENCIES}"
+    )
+endmacro()
+
+include(CMakeFindDependencyMacro)
+@FIND_DEPENDENCIES@
+
+if (NOT TARGET @TARGET_NAMESPACE@::@TARGET_NAME@)
+    set(_@TARGET_NAME@_OWN_INCLUDE_DIRS "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@INCLUDE_DIR@/.." "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@INCLUDE_DIR@")
+    set(@TARGET_NAME@_PRIVATE_INCLUDE_DIRS
+        "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@INCLUDE_DIR@/@VERSION@"
+        "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@INCLUDE_DIR@/@VERSION@/@TARGET_NAME@")
+
+    foreach(_dir ${_@TARGET_NAME@_OWN_INCLUDE_DIRS})
+        _@TARGET_NAMESPACE@_@TARGET_NAME@_check_file_exists(${_dir})
+    endforeach()
+
+    # Only check existence of private includes if the Private component is
+    # specified.
+    list(FIND @TARGET_NAME@_FIND_COMPONENTS Private _check_private)
+    if (NOT _check_private STREQUAL -1)
+        foreach(_dir ${@TARGET_NAME@_PRIVATE_INCLUDE_DIRS})
+            _@TARGET_NAMESPACE@_@TARGET_NAME@_check_file_exists(${_dir})
+        endforeach()
+    endif()
+
+    set(@TARGET_NAME@_INCLUDE_DIRS ${_@TARGET_NAME@_OWN_INCLUDE_DIRS})
+    set(@TARGET_NAME@_OWN_PRIVATE_INCLUDE_DIRS ${@TARGET_NAME@_PRIVATE_INCLUDE_DIRS})
+    set(@TARGET_NAME@_DEFINITIONS "")
+    set(@TARGET_NAME@_COMPILE_DEFINITIONS "")
+    set(@TARGET_NAME@_EXECUTABLE_COMPILE_FLAGS "")
+
+    add_library(@TARGET_NAMESPACE@::@TARGET_NAME@ SHARED IMPORTED)
+
+    set_property(TARGET @TARGET_NAMESPACE@::@TARGET_NAME@ PROPERTY
+      INTERFACE_INCLUDE_DIRECTORIES ${_@TARGET_NAME@_OWN_INCLUDE_DIRS})
+    set_property(TARGET @TARGET_NAMESPACE@::@TARGET_NAME@ PROPERTY
+      INTERFACE_LINK_LIBRARIES "@LINK_LIBRARIES@")
+
+    set(_@TARGET_NAME@_PRIVATE_DIRS_EXIST TRUE)
+    foreach (_@TARGET_NAME@_PRIVATE_DIR ${@TARGET_NAME@_OWN_PRIVATE_INCLUDE_DIRS})
+        if (NOT EXISTS ${_@TARGET_NAME@_PRIVATE_DIR})
+            set(_@TARGET_NAME@_PRIVATE_DIRS_EXIST FALSE)
+        endif()
+    endforeach()
+
+    if (_@TARGET_NAME@_PRIVATE_DIRS_EXIST)
+        add_library(@TARGET_NAMESPACE@::@TARGET_NAME@Private INTERFACE IMPORTED)
+        set_property(TARGET @TARGET_NAMESPACE@::@TARGET_NAME@Private PROPERTY
+            INTERFACE_INCLUDE_DIRECTORIES ${@TARGET_NAME@_OWN_PRIVATE_INCLUDE_DIRS}
+        )
+        set(_@TARGET_NAME@_PRIVATEDEPS)
+        foreach(dep ${_@TARGET_NAME@_LIB_DEPENDENCIES})
+            if (TARGET ${dep}Private)
+                list(APPEND _@TARGET_NAME@_PRIVATEDEPS ${dep}Private)
+            endif()
+        endforeach()
+        set_property(TARGET @TARGET_NAMESPACE@::@TARGET_NAME@Private PROPERTY
+            INTERFACE_LINK_LIBRARIES @TARGET_NAMESPACE@::@TARGET_NAME@ ${_@TARGET_NAME@_PRIVATEDEPS}
+        )
+    endif()
+
+    _populate_target_properties(DEBUG "@SONAME@" "" )
+
+    _@TARGET_NAMESPACE@_@TARGET_NAME@_check_file_exists("${CMAKE_CURRENT_LIST_DIR}/@TARGET_NAME@ConfigVersion.cmake")
+endif()

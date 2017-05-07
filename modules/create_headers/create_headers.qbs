@@ -80,4 +80,27 @@ Module {
             return [cmd];
         }
     }
+
+    Rule {
+        inputs: ["private_headers"]
+        excludedAuxiliaryInputs: ["unmocable"]
+        alwaysRun: true
+
+        Artifact {
+            filePath: FileInfo.joinPaths(ModUtils.moduleProperty(product, "generatedHeadersDir"), product.targetName, "private", input.fileName)
+            fileTags: ["hpp"]
+        }
+
+        prepare: {
+            var cmd = new JavaScriptCommand();
+            cmd.description = "copying " + output.fileName;
+            cmd.extendedDescription = "Copying " + output.fileName + " to " + output.filePath;
+            cmd.highlight = "filegen";
+            cmd.sourceCode = function() {
+                File.makePath(FileInfo.path(output.filePath));
+                File.copy(input.filePath, output.filePath);
+            };
+            return [cmd];
+        }
+    }
 }

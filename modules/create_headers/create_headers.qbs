@@ -58,26 +58,36 @@ Module {
             var generatedHeadersDir = ModUtils.moduleProperty(product, "generatedHeadersDir");
             var artifacts = [];
             if (headersMap.hasOwnProperty(input.fileName)) {
-                var artifact = {
-                    filePath: FileInfo.joinPaths(generatedHeadersDir, product.targetName, headersMap[input.fileName]),
-                    fileTags: ["class_headers"]
-                };
-                artifacts.push(artifact);
+                var classHeaders = headersMap[input.fileName].split(",");
+                for (var i in classHeaders) {
+                    var classHeader = classHeaders[i];
+                    var artifact = {
+                        filePath: FileInfo.joinPaths(generatedHeadersDir, product.targetName, classHeader),
+                        fileTags: ["class_headers"]
+                    };
+                    artifacts.push(artifact);
+                }
             }
             return artifacts;
         }
         outputFileTags: ["class_headers"]
         prepare: {
-            var cmd = new JavaScriptCommand();
-            cmd.description = "creating class header " + output.fileName;
-            cmd.extendedDescription = "Creating class header " + output.fileName;
-            cmd.highlight = "filegen";
-            cmd.sourceCode = function() {
-                var file = new TextFile(output.filePath, TextFile.WriteOnly);
-                file.write('#include "' + product.targetName + "/" + input.fileName + '"');
-                file.close();
-            };
-            return [cmd];
+            var cmds = [];
+            for (var i in outputs.class_headers) {
+                var output = outputs.class_headers[i];
+                var cmd = new JavaScriptCommand();
+                cmd.description = "creating class header " + output.fileName;
+                cmd.extendedDescription = "Creating class header " + output.fileName;
+                cmd.highlight = "filegen";
+                cmd.output = output;
+                cmd.sourceCode = function() {
+                    var file = new TextFile(output.filePath, TextFile.WriteOnly);
+                    file.write('#include "' + product.targetName + "/" + input.fileName + '"');
+                    file.close();
+                };
+                cmds.push(cmd);
+            }
+            return cmds;
         }
     }
 

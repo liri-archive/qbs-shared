@@ -29,7 +29,7 @@ Module {
     Rule {
         inputs: ["public_headers"]
         excludedAuxiliaryInputs: ["unmocable"]
-        alwaysRun: true
+        //alwaysRun: true
 
         Artifact {
             filePath: FileInfo.joinPaths(ModUtils.moduleProperty(product, "generatedHeadersDir"), product.targetName, input.fileName)
@@ -52,7 +52,7 @@ Module {
     Rule {
         inputs: ["public_headers"]
         excludedAuxiliaryInputs: ["unmocable"]
-        alwaysRun: true
+        //alwaysRun: true
         outputArtifacts: {
             var headersMap = ModUtils.moduleProperty(product, "headersMap");
             var generatedHeadersDir = ModUtils.moduleProperty(product, "generatedHeadersDir");
@@ -94,7 +94,7 @@ Module {
     Rule {
         inputs: ["private_headers"]
         excludedAuxiliaryInputs: ["unmocable"]
-        alwaysRun: true
+        //alwaysRun: true
 
         Artifact {
             filePath: FileInfo.joinPaths(ModUtils.moduleProperty(product, "generatedHeadersDir"), product.targetName, "private", input.fileName)

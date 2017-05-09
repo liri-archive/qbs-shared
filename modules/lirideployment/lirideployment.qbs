@@ -7,6 +7,7 @@ Module {
     property string docDir: dataDir + "/doc"
     property string manDir: dataDir + "/man"
     property string infoDir: dataDir + "/info"
+    property string etcDir: "etc"
     property string applicationsDir: dataDir + "/applications"
     property string appDataDir: dataDir + "/appdata"
     property string libDir: "lib"

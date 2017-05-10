@@ -1,4 +1,8 @@
-import qbs 1.0
+#!/usr/bin/env python3
+
+import os
+
+template = """import qbs 1.0
 
 Module {
     property bool found: probe.found
@@ -15,6 +19,21 @@ Module {
 
     LiriPkgConfigProbe {
         id: probe
-        name: "gbm"
+        name: "%s"
     }
 }
+"""
+
+modules = [
+    'wayland-client',
+    'wayland-server',
+    'wayland-cursor',
+    'wayland-egl',
+]
+
+for module in modules:
+    name = module[8:]
+    if not os.path.exists(name):
+        os.makedirs(name)
+    with open(os.path.join(name, name + ".qbs"), "w") as f:
+        f.write(template % module)

@@ -15,6 +15,6 @@ Module {
 
     LiriPkgConfigProbe {
         id: probe
-        name: "gbm"
+        name: "polkit-qt5-core-1"
     }
 }

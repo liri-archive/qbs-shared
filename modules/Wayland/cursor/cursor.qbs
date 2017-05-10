@@ -15,6 +15,6 @@ Module {
 
     LiriPkgConfigProbe {
         id: probe
-        name: "gbm"
+        name: "wayland-cursor"
     }
 }

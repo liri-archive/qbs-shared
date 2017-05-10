@@ -1,4 +1,8 @@
-import qbs 1.0
+#!/usr/bin/env python3
+
+import os
+
+template = """import qbs 1.0
 
 Module {
     property bool found: probe.found
@@ -15,6 +19,20 @@ Module {
 
     LiriPkgConfigProbe {
         id: probe
-        name: "gbm"
+        name: "%s"
     }
 }
+"""
+
+modules = [
+    'polkit-qt5-agent-1',
+    'polkit-qt5-core-1',
+    'polkit-qt5-gui-1',
+]
+
+for module in modules:
+    name = module[11:][:-2]
+    if not os.path.exists(name):
+        os.makedirs(name)
+    with open(os.path.join(name, name + ".qbs"), "w") as f:
+        f.write(template % module)

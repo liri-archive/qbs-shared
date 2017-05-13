@@ -17,4 +17,6 @@ Module {
     property string qmlDir: libDir + "/qml"
     property string pluginsDir: libDir + "/plugins"
     property string mkspecsDir: "mkspecs"
+    property string qbsModulesDir: dataDir + "/qbs/modules"
+    property string qbsImportsDir: dataDir + "/qbs/imports"
 }

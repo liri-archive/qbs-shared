@@ -8,8 +8,8 @@ Module {
         var paths = [];
         if (kf5Probe.found)
             paths.push(kf5Probe.path);
-        if (solidProbe.found)
-            paths.push(solidProbe.path);
+        if (incProbe.found)
+            paths.push(incProbe.path);
         return paths;
     }
     cpp.libraryPaths: {
@@ -28,18 +28,18 @@ Module {
     Probes.IncludeProbe {
         id: kf5Probe
         pathSuffixes: "include/KF5"
-        names: ["solid_version.h"]
+        names: ["kwallet_version.h"]
     }
 
     Probes.IncludeProbe {
-        id: solidProbe
-        pathSuffixes: "include/KF5/Solid"
-        names: ["solid/solid_export.h"]
+        id: incProbe
+        pathSuffixes: "include/KF5/KWallet"
+        names: ["kwallet_export.h"]
     }
 
     Probes.PathProbe {
         id: libProbe
         platformPaths: ["/usr/local/lib", "/usr/lib"]
-        names: ["libKF5Solid.so"]
+        names: ["libKF5Wallet.so"]
     }
 }

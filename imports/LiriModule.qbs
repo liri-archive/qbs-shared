@@ -1,8 +1,13 @@
 import qbs 1.0
+import qbs.File
 import qbs.FileInfo
+import qbs.PathTools
+import qbs.TextFile
 
 LiriDynamicLibrary {
     property string generatedHeadersDir: FileInfo.joinPaths(product.buildDirectory, lirideployment.includeDir)
+    property string publicIncludeDir: FileInfo.joinPaths(lirideployment.includeDir, targetName)
+    property string privateIncludeDir: FileInfo.joinPaths(lirideployment.includeDir, targetName, project.version)
 
     property bool createClassHeaders: true
     property bool createPkgConfig: true
@@ -15,6 +20,8 @@ LiriDynamicLibrary {
     property bool installPri: true
     property bool installCMake: true
 
+    type: base.concat(["liri.export.module"])
+
     Depends { name: "lirideployment" }
     Depends { name: "create_headers"; condition: createClassHeaders }
     Depends { name: "create_pkgconfig"; condition: createPkgConfig }
@@ -26,13 +33,13 @@ LiriDynamicLibrary {
 
     Group {
         qbs.install: installHeaders
-        qbs.installDir: FileInfo.joinPaths(lirideployment.includeDir, product.targetName)
+        qbs.installDir: product.publicIncludeDir
         fileTagsFilter: ["public_headers", "class_headers"]
     }
 
     Group {
         qbs.install: installHeaders
-        qbs.installDir: FileInfo.joinPaths(lirideployment.includeDir, product.targetName, project.version, product.targetName, "private")
+        qbs.installDir: FileInfo.joinPaths(product.privateIncludeDir, product.targetName, "private")
         fileTagsFilter: "private_headers"
     }
 
@@ -65,5 +72,91 @@ LiriDynamicLibrary {
         qbs.install: installCMake
         qbs.installDir: FileInfo.joinPaths(lirideployment.libDir, "cmake", product.targetName)
         fileTagsFilter: "cmake"
+    }
+
+    Rule {
+        inputs: ["dynamiclibrary"]
+
+        Artifact {
+            filePath: product.targetName + ".qbs"
+            fileTags: ["liri.export.module"]
+        }
+
+        prepare: {
+            var defines = [];
+            var compilerFlags = [];
+            var includePaths = [];
+            var libraryPaths = [];
+            var dynamicLibraries = [];
+            var linkerFlags = [];
+
+            includePaths.push(FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
+                                                 product.moduleProperty("lirideployment", "includeDir")));
+            includePaths.push(FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
+                                                 product.publicIncludeDir));
+            includePaths.push(FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
+                                                 product.privateIncludeDir));
+
+            dynamicLibraries.push(FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
+                                                     input.moduleProperty("qbs", "installPrefix"),
+                                                     input.moduleProperty("qbs", "installDir"),
+                                                     PathTools.dynamicLibraryFilePath(product, product.version, 3)));
+
+            for (var i in product.dependencies) {
+                var dep = product.dependencies[i];
+                if (dep.name == "cpp") {
+                    defines = defines.concat(dep.defines.filter(function(item) {
+                        return product.moduleProperty("cpp", "defines").indexOf(item) == -1;
+                    }));
+                    compilerFlags = compilerFlags.concat(dep.commonCompilerFlags);
+                    includePaths = includePaths.concat(dep.includePaths.filter(function(item, pos) {
+                        return !item.startsWith(product.sourceDirectory) && !item.startsWith(product.buildDirectory);
+                    }));
+                    libraryPaths = libraryPaths.concat(dep.libraryPaths);
+                    dep.dynamicLibraries.map(function(item) {
+                        for (var i in libraryPaths) {
+                            var prefix = product.moduleProperty("cpp", "dynamicLibraryPrefix");
+                            var suffix = product.moduleProperty("cpp", "dynamicLibrarySuffix");
+                            var filePath = FileInfo.joinPaths(libraryPaths[i], prefix + item + suffix);
+                            if (File.exists(filePath))
+                                dynamicLibraries.push(filePath);
+                        }
+                    });
+                    linkerFlags = linkerFlags.concat(dep.linkerFlags);
+                    break;
+                }
+            }
+
+            var cmd = new JavaScriptCommand();
+            cmd.description = "generate " + output.fileName;
+            cmd.highlight = "codegen";
+            cmd.defines = defines;
+            cmd.compilerFlags = compilerFlags;
+            cmd.includePaths = includePaths;
+            cmd.libraryPaths = libraryPaths;
+            cmd.dynamicLibraries = dynamicLibraries;
+            cmd.linkerFlags = linkerFlags;
+            cmd.sourceCode = function() {
+                var file = new TextFile(output.filePath, TextFile.WriteOnly);
+                file.writeLine("import qbs 1.0\n");
+                file.writeLine("Module {");
+                file.writeLine('    Depends { name: "cpp" }\n');
+                file.writeLine('    cpp.defines: ' + JSON.stringify(defines));
+                file.writeLine('    cpp.commonCompilerFlags: ' + JSON.stringify(compilerFlags));
+                file.writeLine('    cpp.includePaths: ' + JSON.stringify(includePaths));
+                file.writeLine('    cpp.libraryPaths: ' + JSON.stringify(libraryPaths));
+                file.writeLine('    cpp.dynamicLibraries: ' + JSON.stringify(dynamicLibraries));
+                file.writeLine('    cpp.linkerFlags: ' + JSON.stringify(linkerFlags));
+                file.writeLine("}");
+                file.close();
+            }
+            return [cmd];
+        }
+    }
+
+    Group {
+        qbs.install: true
+        qbs.installDir: FileInfo.joinPaths(lirideployment.qbsModulesDir, product.targetName)
+        fileTagsFilter: "liri.export.module"
     }
 }

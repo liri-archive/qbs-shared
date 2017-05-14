@@ -25,19 +25,19 @@ Module {
         return libs;
     }
 
-    Probes.IncludeProbe {
+    LiriIncludeProbe {
         id: kf5Probe
         pathSuffixes: "include/KF5"
         names: ["kwallet_version.h"]
     }
 
-    Probes.IncludeProbe {
+    LiriIncludeProbe {
         id: incProbe
         pathSuffixes: "include/KF5/KWallet"
         names: ["kwallet_export.h"]
     }
 
-    Probes.PathProbe {
+    LiriPathProbe {
         id: libProbe
         platformPaths: ["/usr/local/lib", "/usr/lib"]
         names: ["libKF5Wallet.so"]

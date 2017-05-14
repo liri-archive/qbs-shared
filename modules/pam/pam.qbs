@@ -25,12 +25,12 @@ Module {
         return libs;
     }
 
-    Probes.IncludeProbe {
+    LiriIncludeProbe {
         id: incProbe
         names: ["security/pam_appl.h", "pam/pam_appl.h"]
     }
 
-    Probes.PathProbe {
+    LiriPathProbe {
         id: libProbe
         platformPaths: ["/usr/local/lib", "/usr/lib"]
         names: ["libpam.so", "libdl.so"]

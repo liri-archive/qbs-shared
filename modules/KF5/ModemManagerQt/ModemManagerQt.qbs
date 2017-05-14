@@ -26,19 +26,19 @@ Module {
         return libs;
     }
 
-    Probes.IncludeProbe {
+    LiriIncludeProbe {
         id: kf5Probe
         pathSuffixes: "include/KF5"
         names: ["modemmanagerqt_version.h"]
     }
 
-    Probes.IncludeProbe {
+    LiriIncludeProbe {
         id: mmProbe
         pathSuffixes: "include/KF5/ModemManagerQt"
         names: ["modemmanagerqt_export.h"]
     }
 
-    Probes.PathProbe {
+    LiriPathProbe {
         id: libProbe
         platformPaths: ["/usr/local/lib", "/usr/lib"]
         names: ["libKF5ModemManagerQt.so"]

@@ -26,19 +26,19 @@ Module {
         return libs;
     }
 
-    Probes.IncludeProbe {
+    LiriIncludeProbe {
         id: kf5Probe
         pathSuffixes: "include/KF5"
         names: ["networkmanagerqt_version.h"]
     }
 
-    Probes.IncludeProbe {
+    LiriIncludeProbe {
         id: nmProbe
         pathSuffixes: "include/KF5/NetworkManagerQt"
         names: ["networkmanagerqt/networkmanagerqt_export.h", "NetworkManagerQt/Utils"]
     }
 
-    Probes.PathProbe {
+    LiriPathProbe {
         id: libProbe
         platformPaths: ["/usr/local/lib", "/usr/lib"]
         names: ["libKF5NetworkManagerQt.so"]

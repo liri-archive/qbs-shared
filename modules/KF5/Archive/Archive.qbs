@@ -27,19 +27,19 @@ Module {
         return libs;
     }
 
-    Probes.IncludeProbe {
+    LiriIncludeProbe {
         id: kf5Probe
         pathSuffixes: "include/KF5"
         names: ["karchive_version.h"]
     }
 
-    Probes.IncludeProbe {
+    LiriIncludeProbe {
         id: incProbe
         pathSuffixes: "include/KF5/KArchive"
         names: ["karchive_export.h"]
     }
 
-    Probes.PathProbe {
+    LiriPathProbe {
         id: libProbe
         platformPaths: ["/usr/local/lib", "/usr/lib"]
         names: ["libKF5Archive.so"]

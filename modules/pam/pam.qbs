@@ -30,9 +30,8 @@ Module {
         names: ["security/pam_appl.h", "pam/pam_appl.h"]
     }
 
-    LiriPathProbe {
+    LiriLibProbe {
         id: libProbe
-        platformPaths: ["/usr/local/lib", "/usr/lib"]
         names: ["libpam.so", "libdl.so"]
     }
 }

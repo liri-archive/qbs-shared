@@ -37,9 +37,8 @@ Module {
         names: ["kwallet_export.h"]
     }
 
-    LiriPathProbe {
+    LiriLibProbe {
         id: libProbe
-        platformPaths: ["/usr/local/lib", "/usr/lib"]
         names: ["libKF5Wallet.so"]
     }
 }

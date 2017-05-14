@@ -38,9 +38,8 @@ Module {
         names: ["networkmanagerqt/networkmanagerqt_export.h", "NetworkManagerQt/Utils"]
     }
 
-    LiriPathProbe {
+    LiriLibProbe {
         id: libProbe
-        platformPaths: ["/usr/local/lib", "/usr/lib"]
         names: ["libKF5NetworkManagerQt.so"]
     }
 }

@@ -83,6 +83,8 @@ LiriDynamicLibrary {
         }
 
         prepare: {
+            var sysroot = product.moduleProperty("qbs", "sysroot");
+
             var defines = [];
             var compilerFlags = [];
             var includePaths = [];
@@ -108,21 +110,31 @@ LiriDynamicLibrary {
                     defines = defines.concat(dep.defines.filter(function(item) {
                         return product.moduleProperty("cpp", "defines").indexOf(item) == -1;
                     }));
+
                     compilerFlags = compilerFlags.concat(dep.commonCompilerFlags);
-                    includePaths = includePaths.concat(dep.includePaths.filter(function(item, pos) {
+
+                    dep.includePaths.filter(function(item, pos) {
                         return !item.startsWith(product.sourceDirectory) && !item.startsWith(product.buildDirectory);
-                    }));
-                    libraryPaths = libraryPaths.concat(dep.libraryPaths);
+                    }).map(function(item) {
+                        includePaths.push(item.replace(sysroot, ""));
+                    });
+
+                    dep.libraryPaths.map(function(item) {
+                        libraryPaths.push(item.replace(sysroot, ""));
+                    });
+
                     dep.dynamicLibraries.map(function(item) {
-                        for (var i in libraryPaths) {
+                        for (var i in dep.libraryPaths) {
                             var prefix = product.moduleProperty("cpp", "dynamicLibraryPrefix");
                             var suffix = product.moduleProperty("cpp", "dynamicLibrarySuffix");
                             var filePath = FileInfo.joinPaths(libraryPaths[i], prefix + item + suffix);
                             if (File.exists(filePath))
-                                dynamicLibraries.push(filePath);
+                                dynamicLibraries.push(filePath.replace(sysroot, ""));
                         }
                     });
+
                     linkerFlags = linkerFlags.concat(dep.linkerFlags);
+
                     break;
                 }
             }

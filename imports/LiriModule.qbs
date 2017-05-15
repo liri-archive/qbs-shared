@@ -119,6 +119,11 @@ LiriDynamicLibrary {
                         includePaths.push(item.replace(sysroot, ""));
                     });
                     includePaths = includePaths.filter(function(item, pos) {
+                        // Skip mkspec
+                        if (item.startsWith(product.moduleProperty("Qt.core", "mkspecPath")))
+                            return false;
+
+                        // Remove duplicates
                         return includePaths.indexOf(item) == pos;
                     });
 

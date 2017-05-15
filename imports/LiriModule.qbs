@@ -113,14 +113,23 @@ LiriDynamicLibrary {
 
                     compilerFlags = compilerFlags.concat(dep.commonCompilerFlags);
 
-                    dep.includePaths.filter(function(item, pos) {
-                        return !item.startsWith(product.sourceDirectory) && !item.startsWith(product.buildDirectory);
-                    }).map(function(item) {
-                        includePaths.push(item.replace(sysroot, ""));
-                    });
-                    includePaths = includePaths.filter(function(item, pos) {
+                    includePaths = includePaths.concat(dep.includePaths.filter(function(item, pos) {
+                        // Skip source and build directories
+                        if (item.startsWith(product.sourceDirectory) || item.startsWith(product.buildDirectory))
+                            return false;
+
                         // Skip mkspec
                         if (item.startsWith(product.moduleProperty("Qt.core", "mkspecPath")))
+                            return false;
+
+                        return true;
+                    }).map(function(item) {
+                        // Strip sysroot
+                        return item.replace(sysroot, "");
+                    }));
+                    includePaths = includePaths.filter(function(item, pos) {
+                        // Skip empty or null values
+                        if (!item)
                             return false;
 
                         // Remove duplicates
@@ -144,8 +153,16 @@ LiriDynamicLibrary {
                             if (File.exists(filePath))
                                 return filePath.replace(sysroot, "");
                         }
+
+                        // Return an empty string that will be filtered below
+                        return "";
                     }));
                     dynamicLibraries = dynamicLibraries.filter(function(item, pos) {
+                        // Skip empty or null values
+                        if (!item)
+                            return false;
+
+                        // Remove duplicates
                         return dynamicLibraries.indexOf(item) == pos;
                     });
 

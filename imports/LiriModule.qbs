@@ -187,7 +187,7 @@ LiriDynamicLibrary {
                 file.writeLine("Module {");
                 file.writeLine('    property stringList cppIncludePaths: ' + JSON.stringify(includePaths));
                 file.writeLine('    property stringList cppDynamicLibraries: ' + JSON.stringify(dynamicLibraries));
-                file.writeLine();
+                file.writeLine('');
                 file.writeLine('    Depends { name: "cpp" }\n');
                 file.writeLine('    cpp.defines: ' + JSON.stringify(defines));
                 file.writeLine('    cpp.commonCompilerFlags: ' + JSON.stringify(compilerFlags));

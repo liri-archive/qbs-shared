@@ -118,6 +118,9 @@ LiriDynamicLibrary {
                     }).map(function(item) {
                         includePaths.push(item.replace(sysroot, ""));
                     });
+                    includePaths = includePaths.filter(function(item, pos) {
+                        return includePaths.indexOf(item) == pos;
+                    });
 
                     dep.libraryPaths.map(function(item) {
                         libraryPaths.push(item.replace(sysroot, ""));
@@ -137,6 +140,9 @@ LiriDynamicLibrary {
                                 return filePath.replace(sysroot, "");
                         }
                     }));
+                    dynamicLibraries = dynamicLibraries.filter(function(item, pos) {
+                        return dynamicLibraries.indexOf(item) == pos;
+                    });
 
                     linkerFlags = linkerFlags.concat(dep.linkerFlags);
 

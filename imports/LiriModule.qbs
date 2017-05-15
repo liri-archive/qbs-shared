@@ -153,7 +153,6 @@ LiriDynamicLibrary {
                 file.writeLine("import qbs 1.0\n");
                 file.writeLine("Module {");
                 file.writeLine('    property stringList cppIncludePaths: ' + JSON.stringify(includePaths));
-                file.writeLine('    property stringList cppLibraryPaths: ' + JSON.stringify(libraryPaths));
                 file.writeLine('    property stringList cppDynamicLibraries: ' + JSON.stringify(dynamicLibraries));
                 file.writeLine('    Depends { name: "cpp" }\n');
                 file.writeLine('    cpp.defines: ' + JSON.stringify(defines));

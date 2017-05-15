@@ -123,15 +123,20 @@ LiriDynamicLibrary {
                         libraryPaths.push(item.replace(sysroot, ""));
                     });
 
-                    dep.dynamicLibraries.map(function(item) {
+                    dynamicLibraries = dynamicLibraries.concat(dep.dynamicLibraries.map(function(item) {
+                        // Return the library if it's a full path
+                        if (File.exists(item))
+                            return item.replace(sysroot, "");
+
+                        // Otherwise look into the library paths
                         for (var i in dep.libraryPaths) {
                             var prefix = product.moduleProperty("cpp", "dynamicLibraryPrefix");
                             var suffix = product.moduleProperty("cpp", "dynamicLibrarySuffix");
                             var filePath = FileInfo.joinPaths(libraryPaths[i], prefix + item + suffix);
                             if (File.exists(filePath))
-                                dynamicLibraries.push(filePath.replace(sysroot, ""));
+                                return filePath.replace(sysroot, "");
                         }
-                    });
+                    }));
 
                     linkerFlags = linkerFlags.concat(dep.linkerFlags);
 

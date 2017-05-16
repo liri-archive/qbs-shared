@@ -1,5 +1,5 @@
 import qbs
 
 LiriPathProbe {
-    pathSuffixes: ["lib"]
+    pathSuffixes: ["lib", "lib64"]
 }

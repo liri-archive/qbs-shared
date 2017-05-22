@@ -8,21 +8,21 @@ Module {
     property string binDir: "bin"
     property string sbinDir: "sbin"
     property string dataDir: "share"
-    property string docDir: dataDir + "/doc"
-    property string manDir: dataDir + "/man"
-    property string infoDir: dataDir + "/info"
+    property string docDir: FileInfo.joinPath(dataDir, "doc")
+    property string manDir: FileInfo.joinPath(dataDir, "man")
+    property string infoDir: FileInfo.joinPath(dataDir, "info")
     property string etcDir: "etc"
-    property string applicationsDir: dataDir + "/applications"
-    property string appDataDir: dataDir + "/appdata"
+    property string applicationsDir: FileInfo.joinPath(dataDir, "applications")
+    property string appDataDir: FileInfo.joinPath(dataDir, "appdata")
     property string libDir: "lib"
     property string libexecDir: "libexec"
     property string includeDir: "include"
-    property string importsDir: libDir + "/imports"
-    property string qmlDir: libDir + "/qml"
-    property string pluginsDir: libDir + "/plugins"
+    property string importsDir: FileInfo.joinPath(libDir, "imports")
+    property string qmlDir: FileInfo.joinPath(libDir, "qml")
+    property string pluginsDir: FileInfo.joinPath(libDir, "plugins")
     property string mkspecsDir: "mkspecs"
-    property string qbsModulesDir: dataDir + "/qbs/modules"
-    property string qbsImportsDir: dataDir + "/qbs/imports"
+    property string qbsModulesDir: FileInfo.joinPath(dataDir, "qbs", "modules")
+    property string qbsImportsDir: FileInfo.joinPath(dataDir, "qbs", "imports")
 
     setupRunEnvironment: {
         var env = Environment.currentEnv();

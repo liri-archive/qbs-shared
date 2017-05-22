@@ -8,21 +8,21 @@ Module {
     property string binDir: "bin"
     property string sbinDir: "sbin"
     property string dataDir: "share"
-    property string docDir: FileInfo.joinPath(dataDir, "doc")
-    property string manDir: FileInfo.joinPath(dataDir, "man")
-    property string infoDir: FileInfo.joinPath(dataDir, "info")
+    property string docDir: FileInfo.joinPaths(dataDir, "doc")
+    property string manDir: FileInfo.joinPaths(dataDir, "man")
+    property string infoDir: FileInfo.joinPaths(dataDir, "info")
     property string etcDir: "etc"
-    property string applicationsDir: FileInfo.joinPath(dataDir, "applications")
-    property string appDataDir: FileInfo.joinPath(dataDir, "appdata")
+    property string applicationsDir: FileInfo.joinPaths(dataDir, "applications")
+    property string appDataDir: FileInfo.joinPaths(dataDir, "appdata")
     property string libDir: "lib"
     property string libexecDir: "libexec"
     property string includeDir: "include"
-    property string importsDir: FileInfo.joinPath(libDir, "imports")
-    property string qmlDir: FileInfo.joinPath(libDir, "qml")
-    property string pluginsDir: FileInfo.joinPath(libDir, "plugins")
+    property string importsDir: FileInfo.joinPaths(libDir, "imports")
+    property string qmlDir: FileInfo.joinPaths(libDir, "qml")
+    property string pluginsDir: FileInfo.joinPaths(libDir, "plugins")
     property string mkspecsDir: "mkspecs"
-    property string qbsModulesDir: FileInfo.joinPath(dataDir, "qbs", "modules")
-    property string qbsImportsDir: FileInfo.joinPath(dataDir, "qbs", "imports")
+    property string qbsModulesDir: FileInfo.joinPaths(dataDir, "qbs", "modules")
+    property string qbsImportsDir: FileInfo.joinPaths(dataDir, "qbs", "imports")
 
     setupRunEnvironment: {
         var env = Environment.currentEnv();

@@ -2,9 +2,10 @@ import qbs 1.0
 import qbs.FileInfo
 
 DynamicLibrary {
-    readonly property string generatedHeadersDir: FileInfo.joinPaths(product.buildDirectory, "include")
+    readonly property string generatedHeadersDir: FileInfo.joinPaths(product.buildDirectory, lirideployment.includeDir)
 
     Depends { name: "cpp" }
+    Depends { name: "lirideployment" }
 
     cpp.cxxLanguageVersion: "c++11"
     cpp.visibility: "minimal"

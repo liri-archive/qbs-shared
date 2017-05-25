@@ -5,7 +5,6 @@ import qbs.PathTools
 import qbs.TextFile
 
 LiriDynamicLibrary {
-    property string generatedHeadersDir: FileInfo.joinPaths(product.buildDirectory, lirideployment.includeDir)
     property string publicIncludeDir: FileInfo.joinPaths(lirideployment.includeDir, targetName)
     property string privateIncludeDir: FileInfo.joinPaths(lirideployment.includeDir, targetName, project.version)
 

@@ -61,7 +61,8 @@ Module {
             var cmd = new JavaScriptCommand();
             cmd.description = "generating " + output.fileName;
             cmd.highlight = "filegen";
-            cmd.prefix = output.moduleProperty("qbs", "installRoot");
+            cmd.prefix = FileInfo.joinPaths(output.moduleProperty("qbs", "installRoot"),
+                                            output.moduleProperty("qbs", "installPrefix"));
             cmd.targetName = PathTools.dynamicLibraryFilePath(product);
             cmd.pkgVersion = ModUtils.moduleProperty(product, "version");
             cmd.pkgName = ModUtils.moduleProperty(product, "name");

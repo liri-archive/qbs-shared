@@ -11,5 +11,5 @@ LiriPathProbe {
             suffixes.push("lib64");
         return base.concat(suffixes);
     }
-    environmentPaths: base.concat(["LIBRARY_PATH"])
+    environmentPaths: base.concat(["LIRI_LIBRARY_PREFIX"])
 }

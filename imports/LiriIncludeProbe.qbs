@@ -7,5 +7,5 @@ Probes.IncludeProbe {
             return [qbs.sysroot + "/usr", qbs.sysroot + "/usr/local"];
         return [];
     }
-    environmentPaths: base.concat(["C_INCLUDE_PATH", "CPLUS_INCLUDE_PATH"])
+    environmentPaths: base.concat(["LIRI_INCLUDE_PREFIX"])
 }

@@ -44,7 +44,7 @@ Module {
                 FileInfo.joinPaths(qbs.installRoot, qbs.installPrefix, dataDir)
             ].join(qbs.pathListSeparator), env["XDG_DATA_DIRS"], qbs.pathListSeparator);
             env["XDG_CONFIG_DIRS"] = PathTools.prependOrSetPath([
-                FileInfo.joinPaths(qbs.installRoot, qbs.installPrefix, etcDir, "xdg")
+                FileInfo.joinPaths(qbs.installRoot, etcDir, "xdg")
             ].join(qbs.pathListSeparator), env["XDG_CONFIG_DIRS"], qbs.pathListSeparator);
         }
 

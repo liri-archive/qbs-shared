@@ -1,4 +1,5 @@
 import qbs 1.0
+import qbs.FileInfo
 import qbs.TextFile
 
 Module {
@@ -27,7 +28,8 @@ Module {
                 cmd.version = project.version;
                 cmd.versionParts = project.version.split('.');
                 cmd.depends = product.moduleProperty("Qt", "submodules");
-                cmd.rpath = product.moduleProperty("qbs", "installRoot");
+                cmd.rpath = FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
+                                               product.moduleProperty("qbs", "installPrefix"));
                 cmd.sourceCode = function() {
                     var output = outputs.pri[index];
                     var isPublic = !output.baseName.endsWith("_private");

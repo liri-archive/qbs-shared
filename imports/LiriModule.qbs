@@ -92,10 +92,13 @@ LiriDynamicLibrary {
             var linkerFlags = [];
 
             includePaths.push(FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
+                                                 product.moduleProperty("qbs", "installPrefix"),
                                                  product.moduleProperty("lirideployment", "includeDir")));
             includePaths.push(FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
+                                                 product.moduleProperty("qbs", "installPrefix"),
                                                  product.publicIncludeDir));
             includePaths.push(FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
+                                                 product.moduleProperty("qbs", "installPrefix"),
                                                  product.privateIncludeDir));
 
             dynamicLibraries.push(FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),

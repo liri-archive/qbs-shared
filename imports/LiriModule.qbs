@@ -23,10 +23,10 @@ LiriDynamicLibrary {
 
     Depends { name: "lirideployment" }
     Depends { name: "create_headers"; condition: createClassHeaders }
-    Depends { name: "create_pkgconfig"; condition: createPkgConfig }
+    Depends { name: "create_pkgconfig"; condition: createPkgConfig; required: false }
     Depends { name: "create_prl"; condition: createPrl }
     Depends { name: "create_pri"; condition: createPri }
-    Depends { name: "create_cmake"; condition: createCMake }
+    Depends { name: "create_cmake"; condition: createCMake; required: false }
 
     create_headers.generatedHeadersDir: product.generatedHeadersDir
 

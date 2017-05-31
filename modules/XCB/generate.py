@@ -61,9 +61,16 @@ modules = [
     'xcb-xtest',
 ]
 
+rename = {
+    'xcb-aux': 'auxiliary',
+}
+
 for module in modules:
-    name = module[4:]
-    if not os.path.exists(name):
-        os.makedirs(name)
+    if module in rename:
+        name = rename[module]
+    else:
+        name = module[4:]
+        if not os.path.exists(name):
+            os.makedirs(name)
     with open(os.path.join(name, name + ".qbs"), "w") as f:
         f.write(template % module)

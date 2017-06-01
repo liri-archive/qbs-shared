@@ -9,15 +9,15 @@ LiriDynamicLibrary {
     property string privateIncludeDir: FileInfo.joinPaths(lirideployment.includeDir, targetName, project.version)
 
     property bool createClassHeaders: true
-    property bool createPkgConfig: true
+    property bool createPkgConfig: qbs.targetOS.contains("linux")
     property bool createPrl: false
     property bool createPri: false
-    property bool createCMake: true
+    property bool createCMake: qbs.targetOS.contains("linux")
 
-    property bool installHeaders: true
-    property bool installPkgConfig: true
-    property bool installPri: true
-    property bool installCMake: true
+    property bool installHeaders: qbs.targetOS.contains("linux")
+    property bool installPkgConfig: qbs.targetOS.contains("linux")
+    property bool installPri: qbs.targetOS.contains("linux")
+    property bool installCMake: qbs.targetOS.contains("linux")
 
     type: base.concat(["liri.export.module"])
 
@@ -27,6 +27,7 @@ LiriDynamicLibrary {
     Depends { name: "create_prl"; condition: createPrl }
     Depends { name: "create_pri"; condition: createPri }
     Depends { name: "create_cmake"; condition: createCMake; required: false }
+    Depends { name: "bundle"; condition: qbs.targetOS.contains("macos"); required: false }
 
     create_headers.generatedHeadersDir: product.generatedHeadersDir
 
@@ -44,13 +45,9 @@ LiriDynamicLibrary {
 
     Group {
         qbs.install: true
-        qbs.installDir: bundle.isBundle ? "Library/Frameworks" : (qbs.targetOS.contains("windows") ? "" : lirideployment.libDir)
+        qbs.installDir: bundle.isBundle ? "Library/Frameworks" : lirideployment.libDir
         qbs.installSourceBase: product.buildDirectory
-        fileTagsFilter: [
-            "dynamiclibrary",
-            "dynamiclibrary_symlink",
-            "dynamiclibrary_import"
-        ]
+        fileTagsFilter: bundle.isBundle ? ["bundle.content"] : ["dynamiclibrary", "dynamiclibrary_symlink", "dynamiclibrary_import"]
     }
 
     Group {
@@ -74,6 +71,7 @@ LiriDynamicLibrary {
     }
 
     Rule {
+        condition: qbs.targetOS.contains("linux")
         inputs: ["dynamiclibrary"]
 
         Artifact {

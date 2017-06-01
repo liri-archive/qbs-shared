@@ -5,8 +5,16 @@ import qbs.ModUtils
 import qbs.PathTools
 
 Module {
-    property string binDir: "bin"
-    property string sbinDir: "sbin"
+    property string binDir: {
+        if (qbs.targetOS.contains("linux"))
+            return "bin";
+        return "";
+    }
+    property string sbinDir: {
+        if (qbs.targetOS.contains("linux"))
+            return "sbin";
+        return "";
+    }
     property string dataDir: "share"
     property string docDir: FileInfo.joinPaths(dataDir, "doc")
     property string manDir: FileInfo.joinPaths(dataDir, "man")
@@ -14,7 +22,11 @@ Module {
     property string etcDir: "etc"
     property string applicationsDir: FileInfo.joinPaths(dataDir, "applications")
     property string appDataDir: FileInfo.joinPaths(dataDir, "appdata")
-    property string libDir: "lib"
+    property string libDir: {
+        if (qbs.targetOS.contains("linux"))
+            return "lib";
+        return "";
+    }
     property string libexecDir: "libexec"
     property string includeDir: "include"
     property string importsDir: FileInfo.joinPaths(libDir, "imports")

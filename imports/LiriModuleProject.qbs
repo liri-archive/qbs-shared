@@ -10,7 +10,7 @@ Project {
     property string moduleName: ""
     property string targetName: moduleName + (qbs.enableDebugCode && qbs.targetOS.contains("windows") ? "d" : "")
     property string description: moduleName
-    property string headersName: name + "Headers"
+    property string headersName: moduleName + "Headers"
 
     property var resolvedProperties: ({})
 

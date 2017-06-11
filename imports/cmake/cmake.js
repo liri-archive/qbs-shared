@@ -43,7 +43,7 @@ var cmakeConfig = ""
 	+ '@FIND_DEPENDENCIES@\n'
 	+ '\n'
 	+ 'if (NOT TARGET @TARGET_NAMESPACE@::@TARGET_NAME@)\n'
-	+ '    set(_@TARGET_NAME@_OWN_INCLUDE_DIRS "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@INCLUDE_DIR@/.." "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@INCLUDE_DIR@")\n'
+	+ '    set(_@TARGET_NAME@_OWN_INCLUDE_DIRS "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@ROOT_INCLUDE_DIR@" "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@INCLUDE_DIR@")\n'
 	+ '    set(@TARGET_NAME@_PRIVATE_INCLUDE_DIRS\n'
 	+ '        "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@INCLUDE_DIR@/@VERSION@"\n'
 	+ '        "${_@TARGET_NAMESPACE@_@TARGET_NAME@_install_prefix}/@INCLUDE_DIR@/@VERSION@/@TARGET_NAME@")\n'

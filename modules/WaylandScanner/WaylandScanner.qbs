@@ -11,7 +11,7 @@ Module {
         Artifact {
             filePath: FileInfo.joinPaths(product.moduleProperty("Qt.core", "generatedHeadersDir"),
                                          "wayland-" + FileInfo.baseName(input.fileName) + "-client-protocol.h")
-            fileTags: ["hpp", "private_headers"]
+            fileTags: ["hpp", "hpp_private"]
         }
         Artifact {
             filePath: "wayland-" + FileInfo.baseName(input.fileName) + "-protocol.c"
@@ -29,7 +29,7 @@ Module {
         Artifact {
             filePath: FileInfo.joinPaths(product.moduleProperty("Qt.core", "generatedHeadersDir"),
                                          "qwayland-" + FileInfo.baseName(input.fileName) + ".h")
-            fileTags: ["hpp", "private_headers"]
+            fileTags: ["hpp", "hpp_private"]
         }
         Artifact {
             filePath: "qwayland-" + FileInfo.baseName(input.fileName) + ".cpp"
@@ -47,7 +47,7 @@ Module {
         Artifact {
             filePath: FileInfo.joinPaths(product.moduleProperty("Qt.core", "generatedHeadersDir"),
                                          "wayland-" + FileInfo.baseName(input.fileName) + "-server-protocol.h")
-            fileTags: ["hpp", "private_headers"]
+            fileTags: ["hpp", "hpp_private"]
         }
         Artifact {
             filePath: "wayland-" + FileInfo.baseName(input.fileName) + "-protocol.c"
@@ -65,7 +65,7 @@ Module {
         Artifact {
             filePath: FileInfo.joinPaths(product.moduleProperty("Qt.core", "generatedHeadersDir"),
                                          "qwayland-server-" + FileInfo.baseName(input.fileName) + ".h")
-            fileTags: ["hpp", "private_headers"]
+            fileTags: ["hpp", "hpp_private"]
         }
         Artifact {
             filePath: "qwayland-server-" + FileInfo.baseName(input.fileName) + ".cpp"

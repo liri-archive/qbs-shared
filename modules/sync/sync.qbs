@@ -90,6 +90,7 @@ Module {
             var reTypedefFn = /^typedef *.*\(\*(Q[^\)]*)\)\(.*\);$/;
             var reTypedef = /^typedef +(unsigned )?([^ ]*)(<[\w, *]+>)? +(Q[^ ]*);$/;
             var reQtMacro = / ?Q_[A-Z_]+/;
+            var reExportMacro = /[A-Z_]+_EXPORT /;
             var reDecl = /^(template <class [\w, ]+> )?(class|struct) +(\w+)( ?:)?( ?public [\w<>:,* ]+)?( {)?$/;
             var reIterator = /^Q_DECLARE_\w+ITERATOR\((\w+)\)$/;
             var reNamespace = /^namespace \w+( {)?/; //extern "C" could go here too
@@ -165,20 +166,9 @@ Module {
                 if (braceDepth < 0)
                     throw "Error in parsing header " + input.filePath + ", line " + lineCount + ": brace depth fell below 0.";
 
-                // We only are interested in classes inside the namespace
+                // ignore Qt namespace lines
                 if (line == "QT_BEGIN_NAMESPACE") {
                     insideQt = true;
-                    line = "";
-                    continue;
-                }
-
-                if (!insideQt) {
-                    line = "";
-                    continue;
-                }
-
-                // Ignore internal namespaces
-                if (namespaceDepth >= 0 && braceDepth >= namespaceDepth) {
                     line = "";
                     continue;
                 }
@@ -193,6 +183,7 @@ Module {
                     namespaceDepth = -1;
                 }
 
+                // ignore Qt namespace lines
                 if (line == "QT_END_NAMESPACE") {
                     insideQt = false;
                     line = "";
@@ -211,7 +202,7 @@ Module {
                 }
 
                 // make parsing easier by removing noise
-                line = line.replace(reQtMacro, "");
+                line = line.replace(reQtMacro, "").replace(reExportMacro, "");
 
                 // ignore forward declarations ### decide if this is needed (that is, if is really a false positive)
                 if (reFwdDecl.test(line)) {

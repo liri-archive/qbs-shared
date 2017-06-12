@@ -5,6 +5,8 @@ import qbs.TextFile
 import "scanner.js" as Scanner
 
 Module {
+    Depends { name: "Qt.core" }
+
     Rule {
         inputs: ["wayland.client.protocol"]
 

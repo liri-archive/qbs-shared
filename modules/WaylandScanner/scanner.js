@@ -47,7 +47,7 @@ function createCommands(product, type, input, outputs)
 
 function createQtCommands(product, type, input, outputs)
 {
-    var qtwaylandScanner = product.moduleProperty("Qt.core", "binPath") + '/' + "qtwaylandscanner";
+    var qtwaylandScanner = product.Qt.core.binPath + '/' + "qtwaylandscanner";
 
     var hppOutput = outputs["hpp"][0];
     var hppCmd = new JavaScriptCommand();

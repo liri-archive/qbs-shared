@@ -31,13 +31,13 @@ script:
 
 deploy:
   - provider: script
-    script: curl --ftp-create-dirs -T build/default/fluid-artifacts.tar.gz -u $FTP_USER:$FTP_PASSWORD $FTP_URL/artifacts/master/qbs-shared-artifacts.tar.gz
+    script: curl --ftp-create-dirs -T build/default/qbs-shared-artifacts.tar.gz -u $FTP_USER:$FTP_PASSWORD $FTP_URL/artifacts/master/qbs-shared-artifacts.tar.gz
     skip_cleanup: true
     on:
       branch: master
       condition: "$CC = gcc"
   - provider: script
-    script: curl --ftp-create-dirs -T build/default/fluid-artifacts.tar.gz -u $FTP_USER:$FTP_PASSWORD $FTP_URL/artifacts/develop/qbs-shared-artifacts.tar.gz
+    script: curl --ftp-create-dirs -T build/default/qbs-shared-artifacts.tar.gz -u $FTP_USER:$FTP_PASSWORD $FTP_URL/artifacts/develop/qbs-shared-artifacts.tar.gz
     skip_cleanup: true
     on:
       branch: develop

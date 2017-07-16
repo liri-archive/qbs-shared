@@ -11,6 +11,8 @@ Project {
     qbsSearchPaths: ["."]
 
     Product {
+        name: "Installation"
+
         Depends { name: "lirideployment" }
 
         Group {
@@ -28,5 +30,16 @@ Project {
             qbs.installSourceBase: "modules/"
             files: "modules/**"
         }
+    }
+
+    InstallPackage {
+        name: "qbs-shared-artifacts"
+        targetName: name
+        builtByDefault: false
+
+        archiver.type: "tar"
+        archiver.outputDirectory: project.buildDirectory
+
+        Depends { name: "Installation" }
     }
 }

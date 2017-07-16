@@ -1,0 +1,48 @@
+language: c
+
+compiler:
+  - gcc
+
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    # FTP_USER
+    - secure: "TfhNtxbZU2poKsm71YnWaLmjcRNPhLK4ypBfmaVzA/KuJP/8ziAP55R046PbzuUc5VNn19Lvc1i5mFYITWDofwFxdNq8G0apoaEPpfj56apPJOLg5yFZ4fOPicjYKI/vWCzXXU0vav8dvQq9xu63WqiT4xrEJAK/8XG3NYBCy1WI1mbE7MRIXNVQ3WsZn9DwU5oJthyKXKTNfFCZtZxYD5WNqhrFvIq41bUMuNPHRy6r5Y2YiiOy4NhUKZKgqreTnckPbzZBXtIDC5UbSUSQO1NlfhEKUk33r2ORGXyG/CdSDM9LR4lC9maD7NIcrW7IvKpZcTLnGcxYSUNWoRYtnke07IUPBiECuILC2nyljLNVza2UerJlu+zd+ChVBvD26Os0u80yzK+uV9K9FdN0zgTwBJ34/spT5uJZx8yYLsKs5hevHqa6pp+SR9J2XbqTvOYrWJJZ1ukxgaZfWfdV8fy1RuqbPMu31telWLoSITonP82bj9RaJcxt4AJxBAApANc4xzMeLyMxuZNO0fxJ0b/jQve8/1ERK3SAs5ymg1Q4Uo2iXkXI2EVPDNA1U5NtJqrBMvMnGuHQtBw/C+1HAz0SUmZeXsUSXbAvyABInhgUZlu9/wrH1LNqHQxytqx1HvmxcPKuoDIU9eT+ufoCUbw0VV81DC9PCHtF5V6vy+Y="
+    # FTP_PASSWORD
+    - secure: "GnQm1Bzsu8a4CI/Ug1YyITZHmbNlmPBF2dKUbbMpfe/rrWmoHUVyggIt9tIuN6nnSxJFwYximXb1QPXRuO4lSgYy1MRyEJ5MPyFHwZ6iZM/1sSa0SO3mRaZu87fyja1xloCAOm7XyN7rIurLAZw98uiRdgiYsSU9/CRaDnzRu67mxZjq//zU1D7OTrgLoucGcWnDg6xh9iNzdVg7rXUnS3OpQZilIfH/dp5+opQf652Dz3q/TIFi9HuRCL1qZmbgAXlWwfyynfRyIn4D7lXfcQQGL/DDYhAVs4buq9ruojwAS40MyBeZ+0KeM4teKYrQg0SF1UAYx4rQzcUvvFQ6cCI0+xuNJaFByV+REeml+R4BjlMgxPgbmXLSkAPyMLH9B9WXtmd+i8EuE5BQek0ksPX7JjmQETVXUq4RUGAx/N3JLKN8v7RzhsiACWq5Y4Bz3kqt/EzK5kz7Mqa+1dUMa821uOJgeJghDfyhjGpQdeEtvEQIN0c0GruMnaSqrFAA1u9nH+aBpf8WvoXA1hMMnBnjr+Spcslwjwge2od70p+atHuyWjkIZk4JDgGaFjc20x2c3oZKSy3QL9c/ir6nsCVamwgHOke1Clov+cLNQiOr9g0Xx3tiC29MA1UicL6/gerqDN5l+35Qow8cIAxdOfypqlOdm5WNzWnlTpG9DGA="
+    # FTP_URL
+    - secure: "j+FzAs6JUaIOluVYo/UFAnjAmKgNwN+4zLkxdfIp86z44QYNG3btDiiC4QHlYs34AJAF8s0YIQwZ0KCy1UcCvEQZYCL74pajMFQpVLWCnmjHApk1sV7KZN4hrQWepzlww0MFL4J3WxyRdu+q9kV223u92dAvgm+Sp8SJwReaAqm74oukkt/Jj5N/e/euBnt22yN4k5G2bqR+niN3rk2JXwtBid4HpMGzHDjKmXdo5L9jUBOP7GETO+dG3vU/ke9F//3OuZH71KHdfTR0DGEBt53BFnC/HZV38uBT8jlTUBMh3t23YdumCoEHujw1ggRDryUhE5Uf628OI1N4Cg7dDCQfyVbdFAkbqNzzq43j39pOggwcIr9mx0YkALMQUamaXtNYeisI+J1Rumwr1K7vGYp8zaWkY5ZeMJ/6nLmnnoC9vhxiC4lK1BZzwV9ETRse7MYx+Ul9C99J/ewlu25UE5g2R5Dj7s6UmNso5IemA/FU7MRig0zcqTBbbQEbsT5SO8ciQx120Knl2fCKVkM209iH8OBH33F0JYdVlTawdSGySmzjkaPWuzz3yQJYyJbztXMP2ghUdCC5Uel3fk6B1ohlIfl08Jhqhx2dM7kEUJsdFvLrOjtaoJ10q3elMCCHesG/H2xAoXJRNkZsSouuUhwd4cC7xn0CJlU2YfY8PR4="
+ 
+arch:
+  packages:
+    - qbs
+  script:
+    - qbs-setup-toolchains --detect
+    - qbs-setup-qt /usr/bin/qmake-qt5 qt5
+    - qbs config profiles.qt5.baseProfile ${CC}
+    - qbs build -d build -j $(nproc) --all-products profile:qt5 qbs.installRoot:/ qbs.installPrefix:usr
+
+script:
+  - "curl -s https://raw.githubusercontent.com/lirios/repotools/develop/travis/docker-travis.sh | bash"
+
+deploy:
+  - provider: script
+    script: curl --ftp-create-dirs -T build/default/fluid-artifacts.tar.gz -u $FTP_USER:$FTP_PASSWORD $FTP_URL/artifacts/master/qbs-shared-artifacts.tar.gz
+    skip_cleanup: true
+    on:
+      branch: master
+      condition: "$CC = gcc"
+  - provider: script
+    script: curl --ftp-create-dirs -T build/default/fluid-artifacts.tar.gz -u $FTP_USER:$FTP_PASSWORD $FTP_URL/artifacts/develop/qbs-shared-artifacts.tar.gz
+    skip_cleanup: true
+    on:
+      branch: develop
+      condition: "$CC = gcc"
+
+notifications:
+  email: false
+  slack: lirios:fdUqVmPzqPskEL1UBhqapZ0w

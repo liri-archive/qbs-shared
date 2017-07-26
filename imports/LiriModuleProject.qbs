@@ -3,7 +3,7 @@ import qbs.FileInfo
 import qbs.ModUtils
 import qbs.PathTools
 import qbs.TextFile
-import "LiriUtils.js" as LiriUtils
+import LiriUtils
 import "cmake/cmake.js" as CMake
 
 Project {

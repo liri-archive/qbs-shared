@@ -1,6 +1,6 @@
 import qbs
 import qbs.FileInfo
-import "LiriUtils.js" as LiriUtils
+import LiriUtils
 
 Product {
     property stringList includePaths: LiriUtils.includesForModule(

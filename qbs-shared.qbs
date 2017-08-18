@@ -21,6 +21,7 @@ Project {
             qbs.installDir: lirideployment.qbsImportsDir
             qbs.installSourceBase: "imports/"
             files: "imports/**"
+            excludeFiles: ["imports/**/*.py"]
         }
 
         Group {
@@ -29,6 +30,7 @@ Project {
             qbs.installDir: lirideployment.qbsModulesDir
             qbs.installSourceBase: "modules/"
             files: "modules/**"
+            excludeFiles: ["modules/**/*.py"]
         }
     }
 

@@ -16,6 +16,7 @@ Product {
     Depends { name: "sync" }
 
     sync.name: project.name
+    sync.module: project.moduleName
 
     Group {
         qbs.install: product.install

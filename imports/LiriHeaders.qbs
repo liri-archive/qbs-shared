@@ -9,8 +9,13 @@ Product {
                                           project.version)
     property bool install: qbs.targetOS.contains("linux")
 
+    name: project.headersName
+    type: ["hpp_private", "hpp_public", "hpp_forwarding", "hpp_module", "hpp_depends", "hpp"]
+
     Depends { name: "lirideployment" }
     Depends { name: "sync" }
+
+    sync.name: project.name
 
     Group {
         qbs.install: product.install

@@ -6,7 +6,7 @@ Project {
     readonly property string version: "0.9.0"
     readonly property var versionParts: version.split('.').map(function(part) { return parseInt(part); })
 
-    minimumQbsVersion: "1.6"
+    minimumQbsVersion: "1.8.0"
 
     qbsSearchPaths: ["."]
 

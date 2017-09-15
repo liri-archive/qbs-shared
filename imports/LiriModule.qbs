@@ -8,6 +8,12 @@ LiriDynamicLibrary {
         qbs.install: true
         qbs.installDir: bundle.isBundle ? "Library/Frameworks" : lirideployment.libDir
         qbs.installSourceBase: product.buildDirectory
-        fileTagsFilter: bundle.isBundle ? ["bundle.content"] : ["dynamiclibrary", "dynamiclibrary_symlink", "dynamiclibrary_import"]
+        fileTagsFilter: {
+            if (bundle.isBundle)
+                return ["bundle.content"];
+            else if (product.type.contains("staticlibrary"))
+                return ["staticlibrary"];
+            return ["dynamiclibrary", "dynamiclibrary_symlink", "dynamiclibrary_import"];
+        }
     }
 }

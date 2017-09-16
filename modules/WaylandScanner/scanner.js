@@ -1,5 +1,5 @@
-var FileInfo = loadExtension("qbs.FileInfo");
-var TextFile = loadExtension("qbs.TextFile");
+var FileInfo = require("qbs.FileInfo");
+var TextFile = require("qbs.TextFile");
 
 function createCommands(product, type, input, outputs)
 {

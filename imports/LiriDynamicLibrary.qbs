@@ -11,4 +11,9 @@ DynamicLibrary {
         "QT_NO_CAST_TO_ASCII"
     ]
     cpp.includePaths: [product.sourceDirectory]
+
+    Properties {
+        condition: project.useStaticAnalyzer && cpp.compilerName.contains("clang")
+        cpp.compilerWrapper: ["scan-build"]
+    }
 }

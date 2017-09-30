@@ -6,6 +6,8 @@ LiriDynamicLibrary {
 
     targetName: name + (qbs.enableDebugCode && qbs.targetOS.contains("windows") ? "d" : "")
 
+    bundle.isBundle: false
+
     Depends { name: "lirideployment" }
     Depends { name: "Qt"; submodules: ["qml", "quick"] }
 

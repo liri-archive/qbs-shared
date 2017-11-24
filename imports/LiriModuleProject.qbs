@@ -11,6 +11,9 @@ Project {
     property string targetName: moduleName + (qbs.enableDebugCode && qbs.targetOS.contains("windows") ? "d" : "")
     property string description: moduleName
     property string headersName: moduleName + "Headers"
+    property string privateName: moduleName + "-private"
+    property stringList defines: []
+    property var conditionFunction: (function() { return true; })
 
     property var resolvedProperties: ({})
 

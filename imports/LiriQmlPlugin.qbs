@@ -1,15 +1,22 @@
 import qbs 1.0
 import qbs.FileInfo
 
-LiriDynamicLibrary {
+LiriProduct {
     property string pluginPath
 
+    type: ["dynamiclibrary", "android.nativelibrary"]
     targetName: name + (qbs.enableDebugCode && qbs.targetOS.contains("windows") ? "d" : "")
 
-    bundle.isBundle: false
+    cpp.includePaths: [product.sourceDirectory]
 
     Depends { name: "lirideployment" }
     Depends { name: "Qt"; submodules: ["qml", "quick"] }
+    Depends { name: "bundle"; condition: qbs.targetOS.contains("macos"); required: false }
+
+    Properties {
+        condition: qbs.targetOS.contains("macos")
+        bundle.isBundle: false
+    }
 
     FileTagger {
         patterns: ["qmldir", "*.qml", "*.qmltypes"]

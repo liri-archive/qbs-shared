@@ -1,19 +1,12 @@
 import qbs 1.0
-import qbs.FileInfo
 
-DynamicLibrary {
-    Depends { name: "cpp" }
+LiriProduct {
+    type: ["dynamiclibrary", "android.nativelibrary"]
 
-    cpp.cxxLanguageVersion: "c++11"
-    cpp.visibility: "minimal"
-    cpp.defines: [
-        "QT_NO_CAST_FROM_ASCII",
-        "QT_NO_CAST_TO_ASCII"
-    ]
-    cpp.includePaths: [product.sourceDirectory]
+    Depends { name: "bundle"; condition: qbs.targetOS.contains("macos"); required: false }
 
     Properties {
-        condition: project.useStaticAnalyzer && cpp.compilerName.contains("clang")
-        cpp.compilerWrapper: ["scan-build"]
+        condition: qbs.targetOS.contains("macos")
+        bundle.isBundle: false
     }
 }

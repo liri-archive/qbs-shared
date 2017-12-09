@@ -5,10 +5,10 @@ import os
 template = """import qbs 1.0
 
 Module {
-    property bool found: X11.x11.found && probe.found
-
     Depends { name: "cpp" }
     Depends { name: "X11.x11" }
+
+    condition: X11.x11.found && probe.found
 
     cpp.defines: base.concat(probe.defines == undefined ? [] : probe.defines)
     cpp.commonCompilerFlags: base.concat(probe.compilerFlags == undefined ? [] : probe.compilerFlags)

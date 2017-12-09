@@ -4,6 +4,8 @@ import qbs.Probes
 Module {
     Depends { name: "cpp" }
 
+    condition: pulseProbe.found && pulseGlibProbe.found
+
     cpp.includePaths: {
         var cflags = [];
         if (pulseProbe.found && pulseProbe.cflags != undefined)

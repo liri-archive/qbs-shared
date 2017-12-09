@@ -5,10 +5,11 @@ import os
 template = """import qbs 1.0
 
 Module {
-    property bool found: probe.found
     property string packageVersion: probe.modversion
 
     Depends { name: "cpp" }
+
+    condition: probe.found
 
     cpp.defines: probe.defines == undefined ? [] : probe.defines
     cpp.commonCompilerFlags: probe.compilerFlags == undefined ? [] : probe.compilerFlags

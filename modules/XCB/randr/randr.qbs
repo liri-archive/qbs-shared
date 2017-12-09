@@ -1,10 +1,10 @@
 import qbs 1.0
 
 Module {
-    property bool found: XCB.xcb.found && probe.found
-
     Depends { name: "cpp" }
     Depends { name: "XCB.xcb" }
+
+    condition: XCB.xcb.found && probe.found
 
     cpp.defines: base.concat(probe.defines == undefined ? [] : probe.defines)
     cpp.commonCompilerFlags: base.concat(probe.compilerFlags == undefined ? [] : probe.compilerFlags)

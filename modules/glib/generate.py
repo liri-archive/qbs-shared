@@ -5,9 +5,9 @@ import os
 template = """import qbs 1.0
 
 Module {
-    property bool found: probe.found
-
     Depends { name: "cpp" }
+
+    condition: probe.found
 
     cpp.defines: base.concat(probe.defines == undefined ? [] : probe.defines)
     cpp.commonCompilerFlags: base.concat(probe.compilerFlags == undefined ? [] : probe.compilerFlags)

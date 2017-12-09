@@ -5,8 +5,6 @@ Module {
     Depends { name: "cpp" }
     Depends { name: "NetworkManager" }
 
-    condition: kf5Probe.found && nmProbe.found && libProbe.found
-
     cpp.includePaths: {
         var paths = [];
         if (kf5Probe.found)

@@ -4,8 +4,6 @@ import qbs.Probes
 Module {
     Depends { name: "cpp" }
 
-    condition: kf5Probe.found && incProbe.found && libProbe.found
-
     cpp.includePaths: {
         var paths = [];
         if (kf5Probe.found)

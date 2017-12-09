@@ -2,9 +2,9 @@ import qbs
 import qbs.Probes
 
 Module {
-    Depends { name: "cpp" }
+    property bool found: kf5Probe.found && incProbe.found && libProbe.found
 
-    condition: kf5Probe.found && incProbe.found && libProbe.found
+    Depends { name: "cpp" }
 
     cpp.includePaths: {
         var paths = [];

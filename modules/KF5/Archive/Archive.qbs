@@ -1,5 +1,4 @@
 import qbs
-import qbs.Probes
 
 Module {
     property bool found: kf5Probe.found && incProbe.found && libProbe.found

@@ -1,5 +1,4 @@
 import qbs
-import qbs.Probes
 
 Module {
     Depends { name: "cpp" }

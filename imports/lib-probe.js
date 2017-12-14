@@ -1,0 +1,38 @@
+var Environment = require("qbs.Environment");
+var File = require("qbs.File");
+var FileInfo = require("qbs.FileInfo");
+var ModUtils = require("qbs.ModUtils");
+
+function configure(names, platformPaths, pathSuffixes, environmentPaths, pathListSeparator) {
+    var result = { found: false, candidatePaths: [] };
+    if (!names)
+        throw "'names' must be specified";
+
+    var _paths = ModUtils.concatAll(platformPaths);
+    for (var i = 0; i < environmentPaths.length; ++i) {
+        var value = Environment.getEnv(environmentPaths[i]) || '';
+        if (value.length > 0)
+            _paths = _paths.concat(value.split(pathListSeparator));
+    }
+
+    var _suffixes = ModUtils.concatAll("", pathSuffixes);
+    _paths = _paths.map(function(p) { return FileInfo.fromNativeSeparators(p); });
+    _suffixes = _suffixes.map(function(p) { return FileInfo.fromNativeSeparators(p); });
+    for (i = 0; i < names.length; ++i) {
+        for (var j = 0; j < _paths.length; ++j) {
+            for (var k = 0; k < _suffixes.length; ++k) {
+                var _filePath = FileInfo.joinPaths(_paths[j], _suffixes[k], names[i]);
+                result.candidatePaths.push(_filePath);
+                if (File.exists(_filePath)) {
+                    result.found = true;
+                    result.filePath = _filePath;
+                    result.fileName = names[i];
+                    result.path = FileInfo.joinPaths(_paths[j], _suffixes[k]);
+                    return result;
+                }
+            }
+        }
+    }
+
+    return result;
+}

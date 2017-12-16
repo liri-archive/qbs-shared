@@ -6,9 +6,10 @@ Project {
     readonly property string version: "1.0.0"
     readonly property var versionParts: version.split('.').map(function(part) { return parseInt(part); })
 
-    minimumQbsVersion: "1.8.0"
+    property string qbsImportsDir: "share/qbs/imports"
+    property string qbsModulesDir: "share/qbs/modules"
 
-    qbsSearchPaths: ["."]
+    minimumQbsVersion: "1.8.0"
 
     Product {
         name: "Installation"
@@ -18,7 +19,7 @@ Project {
         Group {
             name: "Imports"
             qbs.install: true
-            qbs.installDir: lirideployment.qbsImportsDir
+            qbs.installDir: project.qbsImportsDir
             qbs.installSourceBase: "imports/"
             files: "imports/**"
             excludeFiles: ["imports/**/*.py"]
@@ -27,7 +28,7 @@ Project {
         Group {
             name: "Modules"
             qbs.install: true
-            qbs.installDir: lirideployment.qbsModulesDir
+            qbs.installDir: project.qbsModulesDir
             qbs.installSourceBase: "modules/"
             files: "modules/**"
             excludeFiles: ["modules/**/*.py"]

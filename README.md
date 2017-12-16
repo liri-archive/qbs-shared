@@ -32,18 +32,16 @@ qbs -d build -j $(nproc) profile:qt5 # use sudo if necessary
 
 On the last `qbs` line, you can specify additional configuration parameters at the end:
 
- * `qbs.installRoot:/path/to/install` (for example `/`)
- * `qbs.installPrefix:path/to/install` (for example `opt/liri` or `usr`)
+ * `modules.qbs.installRoot:/path/to/install` (for example `/`)
+ * `modules.qbs.installPrefix:path/to/install` (for example `opt/liri` or `usr`)
 
 The following are only needed if `qbs.installPrefix` is a system-wide path such as `usr`
 and the default value doesn't suit your needs. All are relative to `qbs.installRoot`:
 
- * `lirideployment.qbsModulesDir:path/to/qbs` where Qbs modules are installed (default: `share/qbs/modules`)
- * `lirideployment.qbsImportDir:path/to/qbs` where Qbs modules are installed (default: `share/qbs/imports`)
+ * `project.qbsModulesDir:path/to/qbs` where Qbs modules are installed (default: `share/qbs/modules`)
+ * `project.qbsImportDir:path/to/qbs` where Qbs modules are installed (default: `share/qbs/imports`)
 
-See `modules/lirideployment/lirideployment.qbs` for more deployment-related parameters.
-
-If you specify `qbs.installRoot` you might need to prefix the entire line with `sudo`,
+If you specify `modules.qbs.installRoot` you might need to prefix the entire line with `sudo`,
 depending on whether you have permissions to write there or not.
 
 ## Licensing

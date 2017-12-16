@@ -14,8 +14,6 @@ Project {
     Product {
         name: "Installation"
 
-        Depends { name: "lirideployment" }
-
         Group {
             name: "Imports"
             qbs.install: true

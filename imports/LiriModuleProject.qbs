@@ -68,6 +68,7 @@ Project {
 
                     var outputFile = new TextFile(output.filePath, TextFile.WriteOnly);
                     outputFile.writeLine("import qbs");
+                    outputFile.writeLine("import LiriUtils");
                     outputFile.writeLine("");
                     outputFile.write(LiriUtils.jsToQml({ Module: content }));
                     outputFile.close();

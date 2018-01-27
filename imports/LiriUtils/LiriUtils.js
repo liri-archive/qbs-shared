@@ -12,6 +12,14 @@ function quote(stringValue) {
     return '"' + stringValue.replace('"', '\\"') + '"';
 }
 
+function stripSysroot(stringValue) {
+    return stringValue.replace(qbs.sysroot, "");
+}
+
+function prependSysroot(stringValue) {
+    return qbs.sysroot + stripSysroot(stringValue);
+}
+
 /* Performs a basic conversion from a JS Object to static QML, listing the key
    on the left and the value on the right. Object values are expanded into types.
    If the key to an Array is a recognized Qbs type (e.g. Depends), it is expanded
@@ -31,7 +39,7 @@ function jsToQml(content, indentLevel) {
                         qml += indent + key + ' {\n' + jsToQml(item, indentLevel + 1) + indent + '}\n';
                     });
                 } else {
-                    qml += indent + key + ': [' + value.join(', ') + ']\n';
+                    qml += indent + key + ': [' + value.map(stripSysroot).join(', ') + ']' + (key == "cpp.includePaths" ? '.map(LiriUtils.prependSysroot)' : '') + '\n';
                 }
                 break;
             }

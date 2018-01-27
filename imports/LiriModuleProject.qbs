@@ -46,8 +46,7 @@ Project {
                 var cmd = new JavaScriptCommand();
                 cmd.description = "generate qbs module " + output.fileName;
                 cmd.highlight = "codegen";
-                cmd.prefix = FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
-                                                product.moduleProperty("qbs", "installPrefix"),
+                cmd.prefix = FileInfo.joinPaths(product.moduleProperty("qbs", "installPrefix"),
                                                 product.moduleProperty("lirideployment", "includeDir"));
                 cmd.content = project.resolvedProperties;
                 cmd.sourceCode = function() {
@@ -105,16 +104,16 @@ Project {
                 var cmd = new JavaScriptCommand();
                 cmd.description = "generating " + output.fileName;
                 cmd.highlight = "filegen";
-                cmd.prefix = FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
-                                                product.moduleProperty("qbs", "installPrefix"));
-                cmd.libDir = product.moduleProperty("lirideployment", "libDir");
-                cmd.includeDir = product.moduleProperty("lirideployment", "includeDir");
+                cmd.prefix = product.moduleProperty("lirideployment", "prefix");
+                cmd.installPrefix = FileInfo.joinPaths(product.moduleProperty("qbs", "installPrefix"), cmd.prefix);
+                cmd.libDir = product.moduleProperty("lirideployment", "libDir").replace(cmd.prefix + "/", "");
+                cmd.includeDir = product.moduleProperty("lirideployment", "includeDir").replace(cmd.prefix + "/", "");
                 cmd.includePaths = LiriUtils.includesForModule(project.moduleName,
-                                                               FileInfo.joinPaths(cmd.prefix, cmd.includeDir),
+                                                               product.moduleProperty("lirideployment", "includeDir"),
                                                                project.version);
                 cmd.sourceCode = function() {
                     var file = new TextFile(output.filePath, TextFile.WriteOnly);
-                    file.writeLine("prefix=" + prefix);
+                    file.writeLine("prefix=" + installPrefix);
                     file.writeLine("exec_prefix=${prefix}");
                     file.writeLine("libdir=${prefix}/" + libDir);
                     file.writeLine("includedir=${prefix}/" + includeDir);
@@ -169,13 +168,13 @@ Project {
                 cmd.description = "generating " + output.fileName;
                 cmd.highlight = "filegen";
                 cmd.installRoot = product.moduleProperty("qbs", "installRoot");
-                cmd.prefix = FileInfo.joinPaths(product.moduleProperty("qbs", "installRoot"),
-                                                product.moduleProperty("qbs", "installPrefix"));
-                cmd.libDir = product.moduleProperty("lirideployment", "libDir");
-                cmd.includeDir = product.moduleProperty("lirideployment", "includeDir");
-                cmd.includePaths = LiriUtils.includesForModule(project.moduleName,
-                                                               FileInfo.joinPaths(cmd.prefix, cmd.includeDir),
-                                                               project.version);
+                cmd.prefix = FileInfo.joinPaths(product.moduleProperty("qbs", "installPrefix"),
+                                                product.moduleProperty("lirideployment", "prefix"));
+                cmd.libDir = FileInfo.joinPaths(product.moduleProperty("qbs", "installPrefix"),
+                                                product.moduleProperty("lirideployment", "libDir"));
+                cmd.includeDir = FileInfo.joinPaths(product.moduleProperty("qbs", "installPrefix"),
+                                                    product.moduleProperty("lirideployment", "includeDir"));
+                cmd.includePaths = LiriUtils.includesForModule(project.moduleName, cmd.includeDir, project.version);
                 cmd.sourceCode = function() {
                     var findDeps = "";
                     for (var dep in project.cmakeDependencies) {

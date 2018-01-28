@@ -27,7 +27,7 @@ From the root of the repository, run:
 qbs setup-toolchains --type gcc /usr/bin/g++ gcc
 qbs setup-qt /usr/bin/qmake-qt5 qt5
 qbs config profiles.qt5.baseProfile gcc
-qbs -d build -j $(nproc) profile:qt5 # use sudo if necessary
+qbs build -d build -j $(nproc) profile:qt5 # use sudo if necessary
 ```
 
 On the last `qbs` line, you can specify additional configuration parameters at the end:
@@ -38,8 +38,9 @@ On the last `qbs` line, you can specify additional configuration parameters at t
 The following are only needed if `qbs.installPrefix` is a system-wide path such as `usr`
 and the default value doesn't suit your needs. All are relative to `qbs.installRoot`:
 
- * `project.qbsModulesDir:path/to/qbs` where Qbs modules are installed (default: `share/qbs/modules`)
- * `project.qbsImportDir:path/to/qbs` where Qbs modules are installed (default: `share/qbs/imports`)
+ * `project.prefix:/path/to/prefix` Qbs installation prefix (default: `/usr/local`)
+ * `project.qbsModulesDir:/path/to/qbs` where Qbs modules are installed (default: `/usr/local/share/qbs/modules`)
+ * `project.qbsImportDir:/path/to/qbs` where Qbs modules are installed (default: `/usr/local/share/qbs/imports`)
 
 If you specify `modules.qbs.installRoot` you might need to prefix the entire line with `sudo`,
 depending on whether you have permissions to write there or not.

@@ -6,8 +6,9 @@ Project {
     readonly property string version: "1.1.0"
     readonly property var versionParts: version.split('.').map(function(part) { return parseInt(part); })
 
-    property string qbsImportsDir: "share/qbs/imports"
-    property string qbsModulesDir: "share/qbs/modules"
+    property string prefix: "/usr/local"
+    property string qbsImportsDir: prefix + "/share/qbs/imports"
+    property string qbsModulesDir: prefix + "/share/qbs/modules"
 
     minimumQbsVersion: "1.8.0"
 

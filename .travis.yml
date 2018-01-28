@@ -24,7 +24,7 @@ arch:
     - qbs-setup-toolchains --detect
     - qbs-setup-qt /usr/bin/qmake-qt5 qt5
     - qbs config profiles.qt5.baseProfile ${CC}
-    - qbs build -d build -j $(nproc) --all-products profile:qt5 qbs.installRoot:/ qbs.installPrefix:usr
+    - qbs build -d build -j $(nproc) --all-products profile:qt5 project.prefix:"/usr"
 
 script:
   - "curl -s https://raw.githubusercontent.com/lirios/repotools/develop/travis/docker-travis.sh | bash"

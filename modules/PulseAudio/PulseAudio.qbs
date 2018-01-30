@@ -2,6 +2,8 @@ import qbs
 import qbs.Probes
 
 Module {
+    readonly property bool found: pulseProbe.found && pulseGlibProbe.found
+
     Depends { name: "cpp" }
 
     cpp.includePaths: {

@@ -1,6 +1,8 @@
 import qbs
 
 Module {
+    readonly property bool found: NetworkManager.found && probe.found
+
     Depends { name: "cpp" }
     Depends { name: "NetworkManager" }
 

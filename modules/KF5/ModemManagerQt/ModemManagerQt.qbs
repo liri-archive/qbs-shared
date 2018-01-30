@@ -1,6 +1,8 @@
 import qbs
 
 Module {
+    readonly property bool found: ModemManager.found && kf5Probe.found && mmProbe.found && libProbe.found
+
     Depends { name: "cpp" }
     Depends { name: "ModemManager" }
 

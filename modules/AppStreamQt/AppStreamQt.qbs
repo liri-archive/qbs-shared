@@ -1,6 +1,8 @@
 import qbs
 
 Module {
+    readonly property bool found: probe.found
+
     Depends { name: "cpp" }
 
     cpp.includePaths: probe.includePaths

@@ -5,7 +5,8 @@ import os
 template = """import qbs 1.0
 
 Module {
-    property bool found: X11.x11.found && probe.found
+    readonly property bool found: X11.x11.found && probe.found
+    readonly property string packageVersion: probe.modversion
 
     Depends { name: "cpp" }
     Depends { name: "X11.x11" }

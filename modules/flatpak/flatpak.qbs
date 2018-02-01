@@ -2,7 +2,7 @@ import qbs 1.0
 
 Module {
     readonly property bool found: probe.found
-    property string packageVersion: probe.modversion
+    readonly property string packageVersion: probe.modversion
 
     Depends { name: "cpp" }
 

@@ -1,45 +1,18 @@
 import qbs
 
 Module {
-    property bool found: kf5Probe.found && incProbe.found && libProbe.found
+    readonly property bool found: probe.found
 
     Depends { name: "cpp" }
 
-    cpp.includePaths: {
-        var paths = [];
-        if (kf5Probe.found)
-            paths.push(kf5Probe.path);
-        if (incProbe.found)
-            paths.push(incProbe.path);
-        return paths;
-    }
-    cpp.libraryPaths: {
-        var paths = [];
-        if (libProbe.found)
-            paths.push(libProbe.path);
-        return paths;
-    }
-    cpp.dynamicLibraries: {
-        var libs = [];
-        if (libProbe.found)
-            libs.push(libProbe.filePath);
-        return libs;
-    }
+    cpp.includePaths: probe.includePaths
+    cpp.libraryPaths: probe.libraryPaths
+    cpp.dynamicLibraries: probe.libraries
 
-    LiriIncludeProbe {
-        id: kf5Probe
-        pathSuffixes: "include/KF5"
-        names: ["karchive_version.h"]
-    }
-
-    LiriIncludeProbe {
-        id: incProbe
-        pathSuffixes: "include/KF5/KArchive"
-        names: ["karchive_export.h"]
-    }
-
-    LiriLibProbe {
-        id: libProbe
-        names: ["libKF5Archive.so"]
+    LiriLibraryProbe {
+        id: probe
+        includePathSuffixes: ["include/KF5/KArchive"]
+        includeNames: ["karchive_export.h"]
+        libraryNames: ["libKF5Archive.so"]
     }
 }

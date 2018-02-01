@@ -2,63 +2,20 @@ import qbs
 import qbs.Probes
 
 Module {
-    readonly property bool found: pulseProbe.found && pulseGlibProbe.found
+    readonly property bool found: probe.found
+    readonly property string packageVersion: probe.modversion
 
     Depends { name: "cpp" }
 
-    cpp.includePaths: {
-        var cflags = [];
-        if (pulseProbe.found && pulseProbe.cflags != undefined)
-            cflags = cflags.concat(pulseProbe.cflags);
-        if (pulseGlibProbe.found && pulseGlibProbe.cflags != undefined)
-            cflags = cflags.concat(pulseGlibProbe.cflags);
-
-        var paths = [];
-        for (var i = 0; i < cflags.length; ++i) {
-            var item = cflags[i];
-            if (item.startsWith("-I"))
-                paths.push(item.slice(2));
-        }
-        return paths;
-    }
-    cpp.libraryPaths: {
-        var libs = [];
-        if (pulseProbe.found && pulseProbe.libs != undefined)
-            libs = libs.concat(pulseProbe.libs);
-        if (pulseGlibProbe.found && pulseGlibProbe.libs != undefined)
-            libs = libs.concat(pulseGlibProbe.libs);
-
-        var paths = [];
-        for (var i = 0; i < libs.length; ++i) {
-            var item = libs[i];
-            if (item.startsWith("-L"))
-                paths.push(item.slice(2));
-        }
-        return paths;
-    }
-    cpp.dynamicLibraries: {
-        var libs = [];
-        if (pulseProbe.found && pulseProbe.libs != undefined)
-            libs = libs.concat(pulseProbe.libs);
-        if (pulseGlibProbe.found && pulseGlibProbe.libs != undefined)
-            libs = libs.concat(pulseGlibProbe.libs);
-
-        var libraries = [];
-        for (var i = 0; i < libs.length; ++i) {
-            var item = libs[i];
-            if (item.startsWith("-l"))
-                libraries.push(item.slice(2));
-        }
-        return libraries;
-    }
+    cpp.defines: probe.defines == undefined ? [] : probe.defines
+    cpp.commonCompilerFlags: probe.compilerFlags == undefined ? [] : probe.compilerFlags
+    cpp.includePaths: probe.includePaths == undefined ? [] : probe.includePaths
+    cpp.libraryPaths: probe.libraryPaths == undefined ? [] : probe.libraryPaths
+    cpp.dynamicLibraries: probe.libraries == undefined ? [] : probe.libraries
+    cpp.linkerFlags: probe.linkerFlags == undefined ? [] : probe.linkerFlags
 
     Probes.PkgConfigProbe {
-        id: pulseProbe
-        name: "libpulse"
-    }
-
-    Probes.PkgConfigProbe {
-        id: pulseGlibProbe
-        name: "libpulse-mainloop-glib"
+        id: probe
+        names: ["libpulse", "libpulse-mainloop-glib"]
     }
 }

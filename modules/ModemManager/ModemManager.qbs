@@ -16,6 +16,6 @@ Module {
 
     Probes.PkgConfigProbe {
         id: probe
-        names: ["ModemManager", "mm-glib"]
+        packageNames: ["ModemManager", "mm-glib"]
     }
 }

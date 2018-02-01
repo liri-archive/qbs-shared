@@ -16,6 +16,6 @@ Module {
 
     Probes.PkgConfigProbe {
         id: probe
-        names: ["libpulse", "libpulse-mainloop-glib"]
+        packageNames: ["libpulse", "libpulse-mainloop-glib"]
     }
 }

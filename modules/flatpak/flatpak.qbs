@@ -16,6 +16,6 @@ Module {
 
     Probes.PkgConfigProbe {
         id: probe
-        names: ["flatpak", "glib-2.0", "gobject-2.0", "gio-2.0"]
+        packageNames: ["flatpak", "glib-2.0", "gobject-2.0", "gio-2.0"]
     }
 }

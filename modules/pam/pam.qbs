@@ -3,7 +3,6 @@ import qbs.Probes
 
 Module {
     readonly property bool found: incProbe.found && libProbe.found
-    readonly property string packageVersion: probe.modversion
 
     Depends { name: "cpp" }
 

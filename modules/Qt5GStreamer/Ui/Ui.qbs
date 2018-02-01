@@ -1,4 +1,5 @@
-import qbs 1.0
+import qbs
+import qbs.Probes
 
 Module {
     readonly property bool found: probe.found
@@ -13,7 +14,7 @@ Module {
     cpp.dynamicLibraries: base.concat(probe.libraries == undefined ? [] : probe.libraries)
     cpp.linkerFlags: base.concat(probe.linkerFlags == undefined ? [] : probe.linkerFlags)
 
-    LiriPkgConfigProbe {
+    Probes.PkgConfigProbe {
         id: probe
         name: "Qt5GStreamerUi-1.0"
     }

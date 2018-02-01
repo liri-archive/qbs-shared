@@ -1,7 +1,9 @@
-import qbs 1.0
+import qbs
+import qbs.Probes
 
 Module {
-    property bool found: X11.x11.found && probe.found
+    readonly property bool found: X11.x11.found && probe.found
+    readonly property string packageVersion: probe.modversion
 
     Depends { name: "cpp" }
     Depends { name: "X11.x11" }
@@ -13,7 +15,7 @@ Module {
     cpp.dynamicLibraries: base.concat(probe.libraries == undefined ? [] : probe.libraries)
     cpp.linkerFlags: base.concat(probe.linkerFlags == undefined ? [] : probe.linkerFlags)
 
-    LiriPkgConfigProbe {
+    Probes.PkgConfigProbe {
         id: probe
         name: "xmu"
     }

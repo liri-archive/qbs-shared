@@ -2,7 +2,8 @@
 
 import os
 
-template = """import qbs 1.0
+template = """import qbs
+import qbs.Probes
 
 Module {
     readonly property bool found: probe.found
@@ -17,7 +18,7 @@ Module {
     cpp.dynamicLibraries: probe.libraries == undefined ? [] : probe.libraries
     cpp.linkerFlags: probe.linkerFlags == undefined ? [] : probe.linkerFlags
 
-    LiriPkgConfigProbe {
+    Probes.PkgConfigProbe {
         id: probe
         name: "%s"
     }

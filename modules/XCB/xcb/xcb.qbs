@@ -1,4 +1,5 @@
-import qbs 1.0
+import qbs
+import qbs.Probes
 
 Module {
     property bool found: probe.found
@@ -12,7 +13,7 @@ Module {
     cpp.dynamicLibraries: base.concat(probe.libraries == undefined ? [] : probe.libraries)
     cpp.linkerFlags: base.concat(probe.linkerFlags == undefined ? [] : probe.linkerFlags)
 
-    LiriPkgConfigProbe {
+    Probes.PkgConfigProbe {
         id: probe
         name: "xcb"
     }

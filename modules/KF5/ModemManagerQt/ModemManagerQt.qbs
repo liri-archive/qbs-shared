@@ -12,8 +12,8 @@ Module {
 
     LiriLibraryProbe {
         id: probe
-        includePathSuffixes: ["include/KF5/ModemManagerQt"]
-        includeNames: ["modemmanagerqt_export.h"]
+        includePathSuffixes: ["include/KF5", "include/KF5/ModemManagerQt"]
+        includeNames: ["modemmanagerqt_export.h", "ModemManagerQt/GenericTypes"]
         libraryNames: ["libKF5ModemManagerQt.so"]
     }
 }

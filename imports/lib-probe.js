@@ -4,7 +4,7 @@ var FileInfo = require("qbs.FileInfo");
 var ModUtils = require("qbs.ModUtils");
 
 function configure(names, platformPaths, pathSuffixes, environmentPaths, pathListSeparator) {
-    var result = { found: false, candidatePaths: [] };
+    var result = { found: false, candidatePaths: [], filePaths: [], paths: [] };
     if (!names)
         throw "'names' must be specified";
 
@@ -25,10 +25,8 @@ function configure(names, platformPaths, pathSuffixes, environmentPaths, pathLis
                 result.candidatePaths.push(_filePath);
                 if (File.exists(_filePath)) {
                     result.found = true;
-                    result.filePath = _filePath;
-                    result.fileName = names[i];
-                    result.path = FileInfo.joinPaths(_paths[j], _suffixes[k]);
-                    return result;
+                    result.filePaths.push(_filePath);
+                    result.paths.push(FileInfo.joinPaths(_paths[j], _suffixes[k]));
                 }
             }
         }

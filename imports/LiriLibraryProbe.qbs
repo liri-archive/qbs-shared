@@ -50,9 +50,9 @@ Probe {
 
         if (includeResult.found && libResult.found) {
             found = true;
-            includePaths = [includeResult.path];
-            libraryPaths = [libResult.path];
-            libraries = [libResult.filePath];
+            includePaths = includeResult.paths;
+            libraryPaths = libResult.paths;
+            libraries = libResult.filePaths;
         }
     }
 }

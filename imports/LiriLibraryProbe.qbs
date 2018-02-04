@@ -1,16 +1,17 @@
 import qbs
 import qbs.ModUtils
 import "lib-probe.js" as ConfigScript
-import LiriUtils
 
 Probe {
     id: probe
 
     // Input
+    property string sysroot: qbs.sysroot
+
     property pathList platformPaths: {
         var paths = qbs.hostOS.contains("unix") ? ["/usr", "/usr/local"] : [];
-        if (qbs.sysroot)
-            return paths.map(LiriUtils.prependSysroot);
+        if (sysroot)
+            return paths.map(function(x) { return sysroot + x; });
         return paths;
     }
 

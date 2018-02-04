@@ -39,6 +39,8 @@ Probe {
     property stringList libraries: []
 
     configure: {
+        console.debug("LiriLibraryProbe: platform paths " + platformPaths);
+
         var includeResult = ConfigScript.configure(includeNames, platformPaths,
                                                    includePathSuffixes,
                                                    includeEnvironmentPaths,

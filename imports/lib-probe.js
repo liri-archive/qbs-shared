@@ -23,10 +23,16 @@ function configure(names, platformPaths, pathSuffixes, environmentPaths, pathLis
             for (var k = 0; k < _suffixes.length; ++k) {
                 var _filePath = FileInfo.joinPaths(_paths[j], _suffixes[k], names[i]);
                 result.candidatePaths.push(_filePath);
+                console.debug("LiriLibraryProbe: Trying " + _filePath);
                 if (File.exists(_filePath)) {
+                    var _path = FileInfo.joinPaths(_paths[j], _suffixes[k]);
+
                     result.found = true;
                     result.filePaths.push(_filePath);
-                    result.paths.push(FileInfo.joinPaths(_paths[j], _suffixes[k]));
+                    result.paths.push(_path);
+
+                    console.debug("LiriLibraryProbe: Found " + _filePath);
+                    console.debug("LiriLibraryProbe: Returning path " + _path);
                 }
             }
         }

@@ -11,7 +11,7 @@ Shared imports and modules for projects using the qbs build system.
 
 ## Dependencies
 
-You need [qbs](http://doc.qt.io/qbs/index.html) to build this project.
+You need [qbs](http://doc.qt.io/qbs/index.html) >= 1.9.0 to build this project.
 
 ## Installation
 
@@ -27,23 +27,19 @@ From the root of the repository, run:
 qbs setup-toolchains --type gcc /usr/bin/g++ gcc
 qbs setup-qt /usr/bin/qmake-qt5 qt5
 qbs config profiles.qt5.baseProfile gcc
-qbs build -d build -j $(nproc) profile:qt5 # use sudo if necessary
 ```
 
-On the last `qbs` line, you can specify additional configuration parameters at the end:
+Then, from the root of the repository, run:
 
- * `modules.qbs.installRoot:/path/to/install` (for example `/`)
- * `modules.qbs.installPrefix:path/to/install` (for example `opt/liri` or `usr`)
+```sh
+qbs -d build -j $(nproc) profile:qt5 # use sudo if necessary
+```
 
-The following are only needed if `qbs.installPrefix` is a system-wide path such as `usr`
-and the default value doesn't suit your needs. All are relative to `qbs.installRoot`:
+To the `qbs` call above you can append additional configuration parameters:
 
  * `project.prefix:/path/to/prefix` Qbs installation prefix (default: `/usr/local`)
  * `project.qbsModulesDir:/path/to/qbs` where Qbs modules are installed (default: `/usr/local/share/qbs/modules`)
  * `project.qbsImportDir:/path/to/qbs` where Qbs modules are installed (default: `/usr/local/share/qbs/imports`)
-
-If you specify `modules.qbs.installRoot` you might need to prefix the entire line with `sudo`,
-depending on whether you have permissions to write there or not.
 
 ## Licensing
 

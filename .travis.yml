@@ -10,12 +10,10 @@ services:
 
 env:
   global:
-    # FTP_USER
-    - secure: "TfhNtxbZU2poKsm71YnWaLmjcRNPhLK4ypBfmaVzA/KuJP/8ziAP55R046PbzuUc5VNn19Lvc1i5mFYITWDofwFxdNq8G0apoaEPpfj56apPJOLg5yFZ4fOPicjYKI/vWCzXXU0vav8dvQq9xu63WqiT4xrEJAK/8XG3NYBCy1WI1mbE7MRIXNVQ3WsZn9DwU5oJthyKXKTNfFCZtZxYD5WNqhrFvIq41bUMuNPHRy6r5Y2YiiOy4NhUKZKgqreTnckPbzZBXtIDC5UbSUSQO1NlfhEKUk33r2ORGXyG/CdSDM9LR4lC9maD7NIcrW7IvKpZcTLnGcxYSUNWoRYtnke07IUPBiECuILC2nyljLNVza2UerJlu+zd+ChVBvD26Os0u80yzK+uV9K9FdN0zgTwBJ34/spT5uJZx8yYLsKs5hevHqa6pp+SR9J2XbqTvOYrWJJZ1ukxgaZfWfdV8fy1RuqbPMu31telWLoSITonP82bj9RaJcxt4AJxBAApANc4xzMeLyMxuZNO0fxJ0b/jQve8/1ERK3SAs5ymg1Q4Uo2iXkXI2EVPDNA1U5NtJqrBMvMnGuHQtBw/C+1HAz0SUmZeXsUSXbAvyABInhgUZlu9/wrH1LNqHQxytqx1HvmxcPKuoDIU9eT+ufoCUbw0VV81DC9PCHtF5V6vy+Y="
-    # FTP_PASSWORD
-    - secure: "GnQm1Bzsu8a4CI/Ug1YyITZHmbNlmPBF2dKUbbMpfe/rrWmoHUVyggIt9tIuN6nnSxJFwYximXb1QPXRuO4lSgYy1MRyEJ5MPyFHwZ6iZM/1sSa0SO3mRaZu87fyja1xloCAOm7XyN7rIurLAZw98uiRdgiYsSU9/CRaDnzRu67mxZjq//zU1D7OTrgLoucGcWnDg6xh9iNzdVg7rXUnS3OpQZilIfH/dp5+opQf652Dz3q/TIFi9HuRCL1qZmbgAXlWwfyynfRyIn4D7lXfcQQGL/DDYhAVs4buq9ruojwAS40MyBeZ+0KeM4teKYrQg0SF1UAYx4rQzcUvvFQ6cCI0+xuNJaFByV+REeml+R4BjlMgxPgbmXLSkAPyMLH9B9WXtmd+i8EuE5BQek0ksPX7JjmQETVXUq4RUGAx/N3JLKN8v7RzhsiACWq5Y4Bz3kqt/EzK5kz7Mqa+1dUMa821uOJgeJghDfyhjGpQdeEtvEQIN0c0GruMnaSqrFAA1u9nH+aBpf8WvoXA1hMMnBnjr+Spcslwjwge2od70p+atHuyWjkIZk4JDgGaFjc20x2c3oZKSy3QL9c/ir6nsCVamwgHOke1Clov+cLNQiOr9g0Xx3tiC29MA1UicL6/gerqDN5l+35Qow8cIAxdOfypqlOdm5WNzWnlTpG9DGA="
-    # FTP_URL
-    - secure: "j+FzAs6JUaIOluVYo/UFAnjAmKgNwN+4zLkxdfIp86z44QYNG3btDiiC4QHlYs34AJAF8s0YIQwZ0KCy1UcCvEQZYCL74pajMFQpVLWCnmjHApk1sV7KZN4hrQWepzlww0MFL4J3WxyRdu+q9kV223u92dAvgm+Sp8SJwReaAqm74oukkt/Jj5N/e/euBnt22yN4k5G2bqR+niN3rk2JXwtBid4HpMGzHDjKmXdo5L9jUBOP7GETO+dG3vU/ke9F//3OuZH71KHdfTR0DGEBt53BFnC/HZV38uBT8jlTUBMh3t23YdumCoEHujw1ggRDryUhE5Uf628OI1N4Cg7dDCQfyVbdFAkbqNzzq43j39pOggwcIr9mx0YkALMQUamaXtNYeisI+J1Rumwr1K7vGYp8zaWkY5ZeMJ/6nLmnnoC9vhxiC4lK1BZzwV9ETRse7MYx+Ul9C99J/ewlu25UE5g2R5Dj7s6UmNso5IemA/FU7MRig0zcqTBbbQEbsT5SO8ciQx120Knl2fCKVkM209iH8OBH33F0JYdVlTawdSGySmzjkaPWuzz3yQJYyJbztXMP2ghUdCC5Uel3fk6B1ohlIfl08Jhqhx2dM7kEUJsdFvLrOjtaoJ10q3elMCCHesG/H2xAoXJRNkZsSouuUhwd4cC7xn0CJlU2YfY8PR4="
+    # DEPLOY_USER
+    - secure: "az9RSDgEi43U6IE1kEhR5FJWkzR51gNEnOTFI4UuMF6bk2ZTtQW2ugkPpf+xvbU1nIcy3N6ANPW45XbqCxx/rlyx9IzWnjn5XQjLIBGV8Qt2tG461B7yw2eiH1TI+a2UYEvXKxUVSwq5z2foeP9dCN7g6RpMPSYrIP/6Iel4lMOChdWZq9hF+EqRYJUfLuxDKg9w0u7wKh7F3Qr0kBYYnlS8hCVQ/WqeG6NeXwncqmYKexeq+k/hxVcUqIpcIUChdrh9x/xT68hgXBBT5V43E9hPesrEtVAfu4OBzMaql26JduD1qxYtqYMQRH84HQN69EPhEnzp8oyDQKPanZ0EwqYb2LjIGiKaQ/f4L98Uc2UeqtV2mpLnkGzDgjg2W/Niohg6S5xLw8OvqeFWwk5hLpmiDgNCKTF8ehbTIygNwgpWQ79xF6y8DNxALCXoQcjpTbQit0MKA/hJ4CYjDPPsY4YUCnj3XoykJOTAJJjxoBe4ihTxi3/FIjT4c/87Dw40Af/Z5jjrSsd9AOIDoITl9PXeUo69ryDDouLC/6wDRsAdHctVnOYBCxKeRKMWYvMqyNddL8UVp+T9fVT0hJOnCHHfGCgN+KP7a07hCAlwJs4MwXKFJfo1SjQ2ld3clS8xzR4W+qYUyNNpGb+xbHgKLbBUd6jpNmd7SEcEe8+skQg="
+    # DEPLOY_HOST
+    - secure: "nYXtAvP+N5Lk3CGwMRGT4FNt6o5VG2CSMeye1enPV1J34IIKc2lkIAmjPCcHpHS0d/Izb+Q+XBr6OOKQIRlYc7oTjOTJ73QcQWSOZaj38abnDLsqzC9zZ+v/N8MKQDH9/lZ9Ei/Bk2W0c9BANxUIgubMymwndPxGgWxh8AHCzcF46u3ThnT+6+fGeR/pduUNHkwJ5X4akE/m/YJ+K75Q0TTx7xgoWLdfB/igzSYWDnPeNY69J+guWRar/QjoF9osteVuWLky4Ju0pVz/k4P3uazYbNtrrPaGkLg0JCu5Uwx/5Zo8tznWBt2EdZwroVtgb8zExl12apaVMD96ak6yjps6A13npeaVLc8mBsbyg1dX4NMVoh0oQY9UO9i20FuRAImdXSFAoHMiv6fIXTP9GvDOwpCeU4UlxoJg56HSzn/EKDulNqZRpBZ9j6dqSabe+DzExEaCFEcfL81K+2pbZRYOvk0s6OaO4oBkEHIWqkhRjIAvl9vpaPUHggv5nGl123SyPScpd3OUfxv/ItgXEuY4Ppqytrv8gDChAp/ETcXxe2L0dxacGRQHydHfjDZW7MoALHn1F/boA6xVm6lVhv/ZD/+zr6NDNX2d6KLfgGq22/2vGp1VuDfBHnPH6kb5JEGoU5cculDJX4+pRm9cygvgSJddYbmFJlAVWq99IgM="
  
 arch:
   packages:
@@ -31,17 +29,17 @@ script:
 
 deploy:
   - provider: script
-    script: curl --ftp-create-dirs -T build/default/qbs-shared-artifacts.tar.gz -u $FTP_USER:$FTP_PASSWORD $FTP_URL/artifacts/master/qbs-shared-artifacts.tar.gz
+    script: .travis/deploy.sh build/default/qbs-shared-artifacts.tar.gz
     skip_cleanup: true
     on:
       branch: master
-      condition: "$CC = gcc"
+      condition: "$CC = gcc) && ($TRAVIS_PULL_REQUEST = false"
   - provider: script
-    script: curl --ftp-create-dirs -T build/default/qbs-shared-artifacts.tar.gz -u $FTP_USER:$FTP_PASSWORD $FTP_URL/artifacts/develop/qbs-shared-artifacts.tar.gz
+    script: .travis/deploy.sh build/default/qbs-shared-artifacts.tar.gz
     skip_cleanup: true
     on:
       branch: develop
-      condition: "$CC = gcc"
+      condition: "$CC = gcc) && ($TRAVIS_PULL_REQUEST = false"
 
 notifications:
   email: false

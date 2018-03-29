@@ -15,17 +15,8 @@ env:
     # DEPLOY_HOST
     - secure: "nYXtAvP+N5Lk3CGwMRGT4FNt6o5VG2CSMeye1enPV1J34IIKc2lkIAmjPCcHpHS0d/Izb+Q+XBr6OOKQIRlYc7oTjOTJ73QcQWSOZaj38abnDLsqzC9zZ+v/N8MKQDH9/lZ9Ei/Bk2W0c9BANxUIgubMymwndPxGgWxh8AHCzcF46u3ThnT+6+fGeR/pduUNHkwJ5X4akE/m/YJ+K75Q0TTx7xgoWLdfB/igzSYWDnPeNY69J+guWRar/QjoF9osteVuWLky4Ju0pVz/k4P3uazYbNtrrPaGkLg0JCu5Uwx/5Zo8tznWBt2EdZwroVtgb8zExl12apaVMD96ak6yjps6A13npeaVLc8mBsbyg1dX4NMVoh0oQY9UO9i20FuRAImdXSFAoHMiv6fIXTP9GvDOwpCeU4UlxoJg56HSzn/EKDulNqZRpBZ9j6dqSabe+DzExEaCFEcfL81K+2pbZRYOvk0s6OaO4oBkEHIWqkhRjIAvl9vpaPUHggv5nGl123SyPScpd3OUfxv/ItgXEuY4Ppqytrv8gDChAp/ETcXxe2L0dxacGRQHydHfjDZW7MoALHn1F/boA6xVm6lVhv/ZD/+zr6NDNX2d6KLfgGq22/2vGp1VuDfBHnPH6kb5JEGoU5cculDJX4+pRm9cygvgSJddYbmFJlAVWq99IgM="
  
-arch:
-  packages:
-    - qbs
-  script:
-    - qbs-setup-toolchains --detect
-    - qbs-setup-qt /usr/bin/qmake-qt5 qt5
-    - qbs config profiles.qt5.baseProfile ${CC}
-    - qbs build -d build -j $(nproc) --all-products profile:qt5 project.prefix:"/usr"
-
 script:
-  - "curl -s https://raw.githubusercontent.com/lirios/repotools/develop/travis/docker-travis.sh | bash"
+  - ./.travis/run.sh
 
 deploy:
   - provider: script

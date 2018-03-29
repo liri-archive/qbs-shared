@@ -13,7 +13,8 @@ msg "Install packages..."
 apt-get install -y \
     g++ clang \
     git \
-    qbs
+    qbs \
+    qt5-default
 
 # Configure qbs
 msg "Setup qbs..."

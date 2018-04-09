@@ -26,7 +26,7 @@ Module {
     property string infoDir: FileInfo.joinPaths(dataDir, "info")
     property string etcDir: "/etc"
     property string applicationsDir: FileInfo.joinPaths(dataDir, "applications")
-    property string appDataDir: FileInfo.joinPaths(dataDir, "appdata")
+    property string appDataDir: FileInfo.joinPaths(dataDir, "metainfo")
     property string libDir: {
         if (qbs.targetOS.contains("linux"))
             return FileInfo.joinPaths(prefix, "lib");

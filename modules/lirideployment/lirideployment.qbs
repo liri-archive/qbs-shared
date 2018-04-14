@@ -44,30 +44,30 @@ Module {
     setupRunEnvironment: {
         var env = Environment.currentEnv();
         env["PATH"] = PathTools.prependOrSetPath([
-            FileInfo.joinPaths(qbs.installRoot, qbs.installPrefix, binDir)
-        ].join(qbs.pathListSeparator), env["PATH"], qbs.pathListSeparator);
+            FileInfo.joinPaths(product.qbs.installRoot, product.qbs.installPrefix, product.lirideployment.binDir)
+        ].join(product.qbs.pathListSeparator), env["PATH"], product.qbs.pathListSeparator);
         env["QT_PLUGIN_PATH"] = PathTools.prependOrSetPath([
-            FileInfo.joinPaths(qbs.installRoot, qbs.installPrefix, pluginsDir)
-        ].join(qbs.pathListSeparator), env["QT_PLUGIN_PATH"], qbs.pathListSeparator);
+            FileInfo.joinPaths(product.qbs.installRoot, product.qbs.installPrefix, product.lirideployment.pluginsDir)
+        ].join(product.qbs.pathListSeparator), env["QT_PLUGIN_PATH"], product.qbs.pathListSeparator);
         env["QML2_IMPORT_PATH"] = PathTools.prependOrSetPath([
-            FileInfo.joinPaths(qbs.installRoot, qbs.installPrefix, qmlDir)
-        ].join(qbs.pathListSeparator), env["QML2_IMPORT_PATH"], qbs.pathListSeparator);
+            FileInfo.joinPaths(product.qbs.installRoot, product.qbs.installPrefix, product.lirideployment.qmlDir)
+        ].join(product.qbs.pathListSeparator), env["QML2_IMPORT_PATH"], product.qbs.pathListSeparator);
 
-        if (qbs.hostOS.contains("unix") && qbs.targetOS.contains("unix")) {
+        if (product.qbs.hostOS.contains("unix") && product.qbs.targetOS.contains("unix")) {
             env["LD_LIBRARY_PATH"] = PathTools.prependOrSetPath([
-                FileInfo.joinPaths(qbs.installRoot, qbs.installPrefix, libDir)
-            ].join(qbs.pathListSeparator), env["LD_LIBRARY_PATH"], qbs.pathListSeparator);
+                FileInfo.joinPaths(product.qbs.installRoot, product.qbs.installPrefix, product.lirideployment.libDir)
+            ].join(product.qbs.pathListSeparator), env["LD_LIBRARY_PATH"], product.qbs.pathListSeparator);
             env["XDG_DATA_DIRS"] = PathTools.prependOrSetPath([
-                FileInfo.joinPaths(qbs.installRoot, qbs.installPrefix, dataDir)
-            ].join(qbs.pathListSeparator), env["XDG_DATA_DIRS"], qbs.pathListSeparator);
+                FileInfo.joinPaths(product.qbs.installRoot, product.qbs.installPrefix, product.lirideployment.dataDir)
+            ].join(product.qbs.pathListSeparator), env["XDG_DATA_DIRS"], product.qbs.pathListSeparator);
             env["XDG_CONFIG_DIRS"] = PathTools.prependOrSetPath([
-                FileInfo.joinPaths(qbs.installRoot, qbs.installPrefix, etcDir, "xdg")
-            ].join(qbs.pathListSeparator), env["XDG_CONFIG_DIRS"], qbs.pathListSeparator);
+                FileInfo.joinPaths(product.qbs.installRoot, product.qbs.installPrefix, product.lirideployment.etcDir, "xdg")
+            ].join(product.qbs.pathListSeparator), env["XDG_CONFIG_DIRS"], product.qbs.pathListSeparator);
         }
 
         for (var i in env) {
-            var v = new ModUtils.EnvironmentVariable(i, qbs.pathListSeparator,
-                                                     qbs.hostOS.contains("windows"));
+            var v = new ModUtils.EnvironmentVariable(i, product.qbs.pathListSeparator,
+                                                     product.qbs.hostOS.contains("windows"));
             v.value = env[i];
             v.set();
         }

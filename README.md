@@ -11,7 +11,7 @@ Shared imports and modules for projects using the qbs build system.
 
 ## Dependencies
 
-You need [qbs](http://doc.qt.io/qbs/index.html) >= 1.9.0 to build this project.
+You need [qbs](http://doc.qt.io/qbs/index.html) >= 1.11.0 to build this project.
 
 ## Installation
 

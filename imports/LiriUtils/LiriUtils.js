@@ -17,7 +17,9 @@ function stripSysroot(stringValue) {
 }
 
 function prependSysroot(stringValue) {
-    return qbs.sysroot + stripSysroot(stringValue);
+    if (qbs.sysroot)
+        return qbs.sysroot + stripSysroot(stringValue);
+    return stringValue;
 }
 
 /* Performs a basic conversion from a JS Object to static QML, listing the key

@@ -13,7 +13,9 @@ function quote(stringValue) {
 }
 
 function stripSysroot(stringValue) {
-    return stringValue.replace(qbs.sysroot, "");
+    if (qbs.sysroot)
+        return stringValue.replace(qbs.sysroot, "");
+    return stringValue;
 }
 
 function prependSysroot(stringValue) {

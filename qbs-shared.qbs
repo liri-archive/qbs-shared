@@ -10,7 +10,8 @@ Project {
     property string qbsImportsDir: prefix + "/share/qbs/imports"
     property string qbsModulesDir: prefix + "/share/qbs/modules"
 
-    minimumQbsVersion: "1.11.0"
+    //minimumQbsVersion: "1.11.0"
+    minimumQbsVersion: "1.10.0"
 
     Product {
         name: "Installation"

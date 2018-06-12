@@ -14,19 +14,19 @@ Product {
 
     Group {
         qbs.install: shortName != undefined
-        qbs.installDir: lirideployment.dataDir + "/liri/settings/modules/" + shortName
+        qbs.installDir: lirideployment.dataDir + "/liri-settings/modules/" + shortName
         fileTagsFilter: "liri.desktop.file"
     }
 
     Group {
         qbs.install: shortName != undefined
-        qbs.installDir: lirideployment.dataDir + "/liri/settings/modules/" + shortName
+        qbs.installDir: lirideployment.dataDir + "/liri-settings/modules/" + shortName
         fileTagsFilter: "liri.settings.contents"
     }
 
     Group {
         qbs.install: shortName != undefined
-        qbs.installDir: lirideployment.dataDir + "/liri/settings/translations/modules"
+        qbs.installDir: lirideployment.dataDir + "/liri-settings/translations/modules"
         fileTagsFilter: "qm"
     }
 }

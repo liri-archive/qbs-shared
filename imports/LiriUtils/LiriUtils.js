@@ -13,11 +13,15 @@ function quote(stringValue) {
 }
 
 function stripSysroot(stringValue) {
-    return stringValue.replace(qbs.sysroot, "");
+    if (qbs.sysroot)
+        return stringValue.replace(qbs.sysroot, "");
+    return stringValue;
 }
 
 function prependSysroot(stringValue) {
-    return qbs.sysroot + stripSysroot(stringValue);
+    if (qbs.sysroot)
+        return qbs.sysroot + stripSysroot(stringValue);
+    return stringValue;
 }
 
 /* Performs a basic conversion from a JS Object to static QML, listing the key

@@ -2,7 +2,7 @@ import qbs
 import qbs.Probes
 
 Module {
-    property bool found: probe.found
+    readonly property bool found: probe.found
 
     Depends { name: "cpp" }
 

@@ -3,14 +3,15 @@ import qbs 1.0
 Project {
     name: "QbsShared"
 
-    readonly property string version: "1.2.0"
+    readonly property string version: "1.3.0"
     readonly property var versionParts: version.split('.').map(function(part) { return parseInt(part); })
 
     property string prefix: "/usr/local"
     property string qbsImportsDir: prefix + "/share/qbs/imports"
     property string qbsModulesDir: prefix + "/share/qbs/modules"
 
-    minimumQbsVersion: "1.9.0"
+    //minimumQbsVersion: "1.11.0"
+    minimumQbsVersion: "1.10.0"
 
     Product {
         name: "Installation"

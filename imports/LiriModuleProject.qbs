@@ -61,10 +61,6 @@ Project {
                     if (cxxStandardLibrary)
                         content["cpp.cxxStandardLibrary"] = LiriUtils.quote(cxxStandardLibrary);
 
-                    var cxxLanguageVersion = product.moduleProperty("cpp", "cxxLanguageVersion");
-                    if (cxxLanguageVersion)
-                        content["cpp.cxxLanguageVersion"] = LiriUtils.quote(cxxLanguageVersion);
-
                     var outputFile = new TextFile(output.filePath, TextFile.WriteOnly);
                     outputFile.writeLine("import qbs");
                     outputFile.writeLine("import LiriUtils");

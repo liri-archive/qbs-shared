@@ -3,7 +3,7 @@ import qbs 1.0
 Project {
     name: "QbsShared"
 
-    readonly property string version: "1.3.0"
+    readonly property string version: "1.4.0"
     readonly property var versionParts: version.split('.').map(function(part) { return parseInt(part); })
 
     property string prefix: "/usr/local"

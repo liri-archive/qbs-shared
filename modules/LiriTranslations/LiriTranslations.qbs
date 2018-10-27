@@ -30,13 +30,8 @@ Module {
                 var cmd = new JavaScriptCommand();
                 cmd.description = "merge translations of " + input.filePath;
                 cmd.highlight = "filegen";
-                cmd.input = input;
+                cmd.inputFilePath = input.filePath;
                 cmd.sourceCode = function() {
-                    // Read original desktop entry
-                    var file = new TextFile(input.filePath, TextFile.ReadOnly);
-                    var contents = file.readAll();
-                    file.close();
-
                     // Collect translations
                     var translations = "";
                     for (var j in inputs["liri.desktop.translations"]) {
@@ -45,7 +40,7 @@ Module {
                         while (!file.atEof()) {
                             var line = file.readLine();
                             var re = /\w+\[\w+\]=/
-                            if (line.match(re))
+                            if (line.match(re) && !line.startsWith("Icon"))
                                 translations += line + "\n";
                         }
                         file.close();
@@ -53,7 +48,7 @@ Module {
 
                     // Replace marker with translations
                     var contents = "";
-                    var file = new TextFile(input.filePath, TextFile.ReadOnly);
+                    var file = new TextFile(inputFilePath, TextFile.ReadOnly);
                     while (!file.atEof()) {
                         var line = file.readLine();
                         var re = /#TRANSLATIONS/;

@@ -10,14 +10,15 @@ function createCommands(product, type, input, outputs)
     hppCmd.description = "wayland-scanner " + input.fileName + " -> " + hppOutput.fileName;
     hppCmd.highlight = "codegen";
     hppCmd.exe = waylandScanner;
-    hppCmd.hppOutput = hppOutput;
+    hppCmd.inputFilePath = input.filePath;
+    hppCmd.outputFilePath = hppOutput.filePath;
     hppCmd.type = type === "client" ? "client-header" : "server-header";
     hppCmd.sourceCode = function() {
         var p = new Process();
         try {
             p.setEnv("LC_ALL", "C");
-            p.setWorkingDirectory(FileInfo.path(hppOutput.filePath));
-            var hppArgs = [type, input.filePath, hppOutput.filePath];
+            p.setWorkingDirectory(FileInfo.path(outputFilePath));
+            var hppArgs = [type, inputFilePath, outputFilePath];
             p.exec(exe, hppArgs, true);
         } finally {
             p.close();
@@ -29,13 +30,14 @@ function createCommands(product, type, input, outputs)
     cppCmd.description = "wayland-scanner " + input.fileName + " -> " + cppOutput.fileName;
     cppCmd.highlight = "codegen";
     cppCmd.exe = waylandScanner;
-    cppCmd.cppOutput = cppOutput;
+    cppCmd.inputFilePath = input.filePath;
+    cppCmd.outputFilePath = cppOutput.filePath;
     cppCmd.sourceCode = function() {
         var p = new Process();
         try {
             p.setEnv("LC_ALL", "C");
-            p.setWorkingDirectory(FileInfo.path(cppOutput.filePath));
-            var cppArgs = ["code", input.filePath, cppOutput.filePath];
+            p.setWorkingDirectory(FileInfo.path(outputFilePath));
+            var cppArgs = ["code", inputFilePath, outputFilePath];
             p.exec(exe, cppArgs, true);
         } finally {
             p.close();
@@ -54,16 +56,17 @@ function createQtCommands(product, type, input, outputs)
     hppCmd.description = "qtwaylandscanner " + input.fileName + " -> " + hppOutput.fileName;
     hppCmd.highlight = "codegen";
     hppCmd.exe = qtwaylandScanner;
-    hppCmd.hppOutput = hppOutput;
+    hppCmd.inputFilePath = input.filePath;
+    hppCmd.outputFilePath = hppOutput.filePath;
     hppCmd.type = type === "client" ? "client-header" : "server-header";
     hppCmd.sourceCode = function() {
         var p = new Process();
         try {
             p.setEnv("LC_ALL", "C");
-            p.setWorkingDirectory(FileInfo.path(hppOutput.filePath));
-            var hppArgs = [type, input.filePath, ""];
+            p.setWorkingDirectory(FileInfo.path(outputFilePath));
+            var hppArgs = [type, inputFilePath, ""];
             p.exec(exe, hppArgs, true);
-            var file = new TextFile(hppOutput.filePath, TextFile.WriteOnly);
+            var file = new TextFile(outputFilePath, TextFile.WriteOnly);
             file.write(p.readStdOut());
             file.close();
         } finally {
@@ -76,16 +79,17 @@ function createQtCommands(product, type, input, outputs)
     cppCmd.description = "qtwaylandscanner " + input.fileName + " -> " + cppOutput.fileName;
     cppCmd.highlight = "codegen";
     cppCmd.exe = qtwaylandScanner;
-    cppCmd.cppOutput = cppOutput;
+    cppCmd.inputFilePath = input.filePath;
+    cppCmd.outputFilePath = cppOutput.filePath;
     cppCmd.type = type === "client" ? "client-code" : "server-code";
     cppCmd.sourceCode = function() {
         var p = new Process();
         try {
             p.setEnv("LC_ALL", "C");
-            p.setWorkingDirectory(FileInfo.path(cppOutput.filePath));
-            var cppArgs = [type, input.filePath, ""];
+            p.setWorkingDirectory(FileInfo.path(outputFilePath));
+            var cppArgs = [type, inputFilePath, ""];
             p.exec(exe, cppArgs, true);
-            var file = new TextFile(cppOutput.filePath, TextFile.WriteOnly);
+            var file = new TextFile(outputFilePath, TextFile.WriteOnly);
             file.write(p.readStdOut());
             file.close();
         } finally {

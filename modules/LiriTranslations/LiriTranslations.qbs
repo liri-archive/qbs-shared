@@ -40,7 +40,7 @@ Module {
                         while (!file.atEof()) {
                             var line = file.readLine();
                             var re = /\w+\[\w+\]=/
-                            if (line.match(re))
+                            if (line.match(re) && !line.startsWith("Icon"))
                                 translations += line + "\n";
                         }
                         file.close();

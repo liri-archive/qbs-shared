@@ -4,7 +4,13 @@ import qbs.FileInfo
 LiriProduct {
     property string pluginPath
 
-    type: ["dynamiclibrary", "android.nativelibrary"]
+    type: ["dynamiclibrary"].concat(isForAndroid ? ["android.nativelibrary"] : [])
+    Properties {
+        condition: isForAndroid && !consoleApplication
+                   && multiplexByQbsProperties && multiplexByQbsProperties.contains("architectures")
+                   && qbs.architectures && qbs.architectures.length > 1
+        targetName: name + "_" + Android.ndk.abi
+    }
     targetName: name + (qbs.enableDebugCode && qbs.targetOS.contains("windows") ? "d" : "")
 
     cpp.includePaths: [product.sourceDirectory]

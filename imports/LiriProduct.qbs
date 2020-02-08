@@ -1,6 +1,6 @@
 import qbs 1.0
 
-Product {
+NativeBinary {
     property stringList commonCppDefines: []
     property bool castFromAscii: false
     property bool castToAscii: false
